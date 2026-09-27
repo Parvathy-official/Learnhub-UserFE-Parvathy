@@ -6,7 +6,6 @@ import { BrowserRouter, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './context/AuthContext';
 import { CourseProvider } from './context/CourseContext';
-import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import AppRoutes from './routes/AppRoutes';
 
@@ -16,8 +15,6 @@ function AppLayout() {
 
   return (
     <>
-      <Navbar />
-
       {/* Page content — takes remaining height */}
       <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         <AppRoutes />
