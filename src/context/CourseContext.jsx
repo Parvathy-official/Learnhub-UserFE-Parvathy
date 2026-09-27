@@ -15,18 +15,20 @@ export function CourseProvider({ children }) {
   const [courses, setCourses] = useState([]);
   const [enrollments, setEnrollments] = useState(() => {
     try {
+      const token = localStorage.getItem('access_token');
       const saved = localStorage.getItem(STORAGE_ENROLLMENTS_KEY);
-      return saved ? JSON.parse(saved) : MOCK_ENROLLMENTS;
+      return (token && saved) ? JSON.parse(saved) : [];
     } catch {
-      return MOCK_ENROLLMENTS;
+      return [];
     }
   });
   const [purchases, setPurchases] = useState(() => {
     try {
+      const token = localStorage.getItem('access_token');
       const saved = localStorage.getItem(STORAGE_PURCHASES_KEY);
-      return saved ? JSON.parse(saved) : MOCK_PURCHASES;
+      return (token && saved) ? JSON.parse(saved) : [];
     } catch {
-      return MOCK_PURCHASES;
+      return [];
     }
   });
 

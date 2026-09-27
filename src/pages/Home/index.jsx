@@ -16,7 +16,7 @@ export default function Home() {
   const { isEnrolled } = useCourseContext();
   const course = MOCK_COURSES[0];
 
-  const userHasAccess = isAuthenticated || isEnrolled('1');
+  const userHasAccess = isAuthenticated && isEnrolled('1');
 
   // Accordion state for Modules
   const [openModule, setOpenModule] = useState(0);

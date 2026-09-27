@@ -16,6 +16,8 @@ export function AuthProvider({ children }) {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('user');
+    localStorage.removeItem('learnflow_enrollments');
+    localStorage.removeItem('learnflow_purchases');
   }, []);
 
   // Initialize auth from localStorage on mount
