@@ -4,7 +4,7 @@
 // =========================================================
 
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../hooks/useAuth';
 import { useCourseContext } from '../../hooks/useCourses';
@@ -248,6 +248,16 @@ export default function Home() {
               </button>
             )}
           </div>
+
+          {!userHasAccess && (
+            <div className={styles.heroStudentAccessRow}>
+              <Link to="/my-learning" className={styles.heroStudentAccessBadge} id="hero-student-login-link">
+                <span className={styles.heroStudentAccessDot}>⚡</span>
+                <span>Already purchased? </span>
+                <span className={styles.heroStudentAccessHighlight}>Access your masterclass here →</span>
+              </Link>
+            </div>
+          )}
 
           {/* Trust Guarantees */}
           <div className={styles.heroTrustGrid}>
@@ -930,6 +940,18 @@ export default function Home() {
                     <polyline points="12 5 19 12 12 19" />
                   </svg>
                 </button>
+              )}
+
+              {!userHasAccess && (
+                <div style={{ textAlign: 'center', marginTop: '12px', marginBottom: '4px' }}>
+                  <span style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)' }}>Already enrolled? </span>
+                  <Link
+                    to="/my-learning"
+                    style={{ fontSize: '0.8125rem', color: 'var(--primary-light)', fontWeight: 700, textDecoration: 'underline' }}
+                  >
+                    Access your masterclass here →
+                  </Link>
+                </div>
               )}
 
               <div className={styles.pricingFeatures}>

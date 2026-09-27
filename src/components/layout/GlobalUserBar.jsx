@@ -15,7 +15,24 @@ export default function GlobalUserBar() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  if (!isAuthenticated) return null;
+  if (!isAuthenticated) {
+    return (
+      <div className={styles.wrapper} id="global-user-bar">
+        <Link to="/my-learning" className={styles.guestAccessBtn} id="student-access-top-btn" title="Access your purchased courses">
+          <div className={styles.guestIconWrap}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+              <path d="M7 11V7a5 5 0 0110 0v4" />
+            </svg>
+          </div>
+          <span>Student Access</span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </Link>
+      </div>
+    );
+  }
 
   const hasCourse1 = isEnrolled('1');
   const isPlayerPage = location.pathname.includes('/learn');

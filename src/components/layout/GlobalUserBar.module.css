@@ -11,6 +11,44 @@
   animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.guestAccessBtn {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px 8px 12px;
+  background: rgba(11, 17, 22, 0.88);
+  border: 1.5px solid rgba(6, 182, 212, 0.45);
+  border-radius: var(--radius-full);
+  color: #CFFAFE;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 18px rgba(6, 182, 212, 0.25);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all var(--transition-fast);
+}
+
+.guestAccessBtn:hover {
+  background: rgba(6, 182, 212, 0.15);
+  border-color: #06B6D4;
+  color: #FFFFFF;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.9), 0 0 25px rgba(6, 182, 212, 0.45);
+}
+
+.guestIconWrap {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(6, 182, 212, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #06B6D4;
+}
+
 .bar {
   pointer-events: auto;
   display: flex;
