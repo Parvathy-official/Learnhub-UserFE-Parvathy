@@ -7,6 +7,7 @@ import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './context/AuthContext';
 import { CourseProvider } from './context/CourseContext';
 import Footer from './components/layout/Footer';
+import GlobalUserBar from './components/layout/GlobalUserBar';
 import AppRoutes from './routes/AppRoutes';
 
 function AppLayout() {
@@ -15,6 +16,9 @@ function AppLayout() {
 
   return (
     <>
+      {/* Global floating student session & log out pill (only visible when logged in) */}
+      <GlobalUserBar />
+
       {/* Page content — takes remaining height */}
       <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         <AppRoutes />
