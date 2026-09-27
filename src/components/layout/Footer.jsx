@@ -3,10 +3,26 @@
 //  No login links, clean and modern
 // =========================================================
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { useAuth } from '../../hooks/useAuth';
 import styles from './Footer.module.css';
 
 export default function Footer() {
+  const { isAuthenticated, currentUser, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      await logout();
+      toast.success('Logged out successfully');
+      navigate('/');
+    } catch {
+      toast.error('Failed to log out');
+    }
+  };
+
   const scrollToSection = (e, id) => {
     e.preventDefault();
     const el = document.getElementById(id);
@@ -66,6 +82,17 @@ export default function Footer() {
               <li><a href="#pricing" onClick={(e) => scrollToSection(e, 'pricing')} className={styles.link}>Instant Access — ₹499</a></li>
               <li><a href="#what-you-get" onClick={(e) => scrollToSection(e, 'what-you-get')} className={styles.link}>What You Get (AI Prompts & SOPs)</a></li>
               <li><a href="#faqs" onClick={(e) => scrollToSection(e, 'faqs')} className={styles.link}>Frequently Asked Questions</a></li>
+              {isAuthenticated && (
+                <li>
+                  <button
+                    onClick={handleLogout}
+                    className={styles.link}
+                    style={{ background: 'none', border: 'none', padding: 0, color: '#EF4444', cursor: 'pointer', font: 'inherit' }}
+                  >
+                    Log Out ({currentUser?.name || currentUser?.email || 'Account'})
+                  </button>
+                </li>
+              )}
             </ul>
           </div>
         </div>
@@ -80,6 +107,17 @@ export default function Footer() {
             <span>🔒 Secure Instant Checkout</span>
             <span>•</span>
             <span>⚡ Instant Session Access</span>
+            {isAuthenticated && (
+              <>
+                <span>•</span>
+                <button
+                  onClick={handleLogout}
+                  style={{ background: 'none', border: 'none', padding: 0, color: '#EF4444', cursor: 'pointer', fontSize: 'inherit', fontWeight: 600 }}
+                >
+                  Sign Out
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>

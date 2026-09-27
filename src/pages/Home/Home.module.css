@@ -127,10 +127,34 @@
   transition: all var(--transition-fast);
 }
 
-.resumeHeroBtn:hover {
-  transform: translateY(-1px) scale(1.03);
-  box-shadow: 0 0 28px rgba(16, 185, 129, 0.7);
-  filter: brightness(1.1);
+.welcomeBackRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.welcomeLogoutBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: rgba(239, 68, 68, 0.12);
+  color: #F87171;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.welcomeLogoutBtn:hover {
+  background: rgba(239, 68, 68, 0.22);
+  border-color: rgba(239, 68, 68, 0.6);
+  color: #FCA5A5;
+  transform: translateY(-1px);
 }
 
 .heroResumeBtn {
