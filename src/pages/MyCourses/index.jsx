@@ -72,7 +72,9 @@ export default function MyCourses() {
                 <div className={styles.userDetails}>
                   <div className={styles.userNameRow}>
                     <span className={styles.userName}>{currentUser?.name || 'Student Account'}</span>
-                    <span className={styles.userBadge}>Active Student</span>
+                    <span className={styles.userBadge}>
+                      {enrolledCourses.length > 0 ? 'Active Student' : 'Student Account'}
+                    </span>
                   </div>
                   <span className={styles.userEmail}>{currentUser?.email || 'Logged in'}</span>
                 </div>

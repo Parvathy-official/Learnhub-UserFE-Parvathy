@@ -18,7 +18,7 @@ export default function Checkout() {
   const { courseId } = useParams();
   const validId = courseId || '1';
   const { currentUser, updateUser, setAuthSession, isAuthenticated } = useAuth();
-  const { addEnrollment, addPurchase } = useCourseContext();
+  const { addEnrollment, addPurchase, fetchEnrollments } = useCourseContext();
   const navigate = useNavigate();
 
   const [course, setCourse] = useState(null);
@@ -48,8 +48,8 @@ export default function Checkout() {
       .finally(() => setLoading(false));
   }, [validId]);
 
-  // Complete purchase, authenticate user, and redirect
-  const completeSuccessfulCheckout = (userData, accessToken, refreshToken, orderRef) => {
+  // Complete purchase, authenticate user, refresh enrollments, and redirect
+  const completeSuccessfulCheckout = async (userData, accessToken, refreshToken, orderRef) => {
     if (setAuthSession) {
       setAuthSession({
         user: userData,
@@ -71,14 +71,14 @@ export default function Checkout() {
     addPurchase({
       id: orderRef,
       course_id: validId,
-      course_title: course?.title || 'Create & Sell Your First Digital Product With AI',
+      course_title: course?.title || 'Performance Marketing Masterclass',
       purchase_date: new Date().toISOString(),
       amount: finalPrice,
       status: 'paid',
       payment_method: 'UPI / Online Instant',
     });
 
-    // Update enrollment state
+    // Update enrollment state and fetch fresh enrollments from backend
     addEnrollment({
       course_id: validId,
       progress_percentage: 0,
@@ -86,6 +86,14 @@ export default function Checkout() {
       last_watched_lesson: 'l1',
       last_position_seconds: 0,
     });
+
+    if (fetchEnrollments) {
+      try {
+        await fetchEnrollments();
+      } catch {
+        // Continue navigation even if background fetch hits network lag
+      }
+    }
 
     toast.success('Instant Access Granted! Welcome to the Masterclass! 🎉');
     navigate(`/payment-success?course=${validId}&orderId=${orderRef}`);
@@ -122,6 +130,7 @@ export default function Checkout() {
       localStorage.setItem('user', JSON.stringify(buyerData));
 
       // Step 1: Create order on backend (Guest / Authenticated)
+      console.log('[Checkout] Creating Razorpay order for course:', validId);
       const order = await paymentService.createOrder(validId, {
         name: buyerData.name,
         email: buyerData.email,
@@ -131,6 +140,12 @@ export default function Checkout() {
       if (!order || !order.order_id) {
         throw new Error('Failed to create payment order. Please try again.');
       }
+
+      console.log('[Checkout] Razorpay order created successfully:', {
+        order_id: order.order_id,
+        amount: order.amount,
+        currency: order.currency,
+      });
 
       // Start background polling every 2.5 seconds to auto-detect payment completion
       poller = setInterval(async () => {
@@ -143,7 +158,8 @@ export default function Checkout() {
           if (statusRes && statusRes.status === 'paid' && !isFinished) {
             isFinished = true;
             if (poller) clearInterval(poller);
-            completeSuccessfulCheckout(
+            console.log('[Checkout] Background poller detected payment completed for order:', order.order_id);
+            await completeSuccessfulCheckout(
               statusRes.user || buyerData,
               statusRes.access,
               statusRes.refresh,
@@ -160,8 +176,8 @@ export default function Checkout() {
         key: order?.key,
         amount: order?.amount,
         currency: order?.currency || 'INR',
-        name: 'DigitalProduct.AI',
-        description: course?.title || 'Create & Sell Your First Digital Product With AI',
+        name: 'LearnFlow Academy',
+        description: course?.title || 'Performance Marketing Masterclass',
         order_id: order?.order_id,
         prefill: { name: buyerData.name, email: buyerData.email, contact: phone },
         theme: { color: '#06B6D4' },
@@ -169,12 +185,13 @@ export default function Checkout() {
 
       // If user dismissed modal, check if payment succeeded in background
       if (paymentResult?.dismissed) {
+        console.log('[Checkout] Modal closed, checking final order status for:', order.order_id);
         try {
           const checkStatus = await paymentService.getPaymentStatus(order.order_id);
           if (checkStatus && checkStatus.status === 'paid' && !isFinished) {
             isFinished = true;
             if (poller) clearInterval(poller);
-            completeSuccessfulCheckout(
+            await completeSuccessfulCheckout(
               checkStatus.user || buyerData,
               checkStatus.access,
               checkStatus.refresh,
@@ -192,22 +209,29 @@ export default function Checkout() {
       }
 
       // Step 3: Verify payment signature server-side
+      const targetOrderId = paymentResult?.razorpay_order_id || order?.order_id;
       if (paymentResult?.razorpay_payment_id && !isFinished) {
+        console.log('[Checkout] Razorpay modal succeeded. Verifying payment server-side for order:', targetOrderId);
         const verification = await paymentService.verifyPayment({
-          razorpay_order_id: paymentResult.razorpay_order_id,
+          razorpay_order_id: targetOrderId,
           razorpay_payment_id: paymentResult.razorpay_payment_id,
           razorpay_signature: paymentResult.razorpay_signature,
           course_id: validId,
         });
 
+        console.log('[Checkout] Server verification response received:', {
+          success: verification?.success,
+          enrollment_id: verification?.enrollment_id,
+        });
+
         if (verification && verification.success && !isFinished) {
           isFinished = true;
           if (poller) clearInterval(poller);
-          completeSuccessfulCheckout(
+          await completeSuccessfulCheckout(
             verification.user || buyerData,
             verification.access,
             verification.refresh,
-            paymentResult.razorpay_order_id || order.order_id
+            targetOrderId
           );
         } else if (!isFinished) {
           throw new Error(verification?.error || 'Payment verification failed');
@@ -216,6 +240,7 @@ export default function Checkout() {
     } catch (err) {
       if (!isFinished) {
         const errMsg = err?.response?.data?.error || err?.response?.data?.detail || err?.message || 'Payment could not be completed. Please try again.';
+        console.error('[Checkout] Checkout/Payment error:', errMsg);
         toast.error(errMsg);
       }
     } finally {
