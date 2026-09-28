@@ -11,7 +11,7 @@ import styles from './GlobalUserBar.module.css';
 
 export default function GlobalUserBar() {
   const { isAuthenticated, currentUser, logout } = useAuth();
-  const { isEnrolled } = useCourseContext();
+  const { enrollments } = useCourseContext();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -34,8 +34,17 @@ export default function GlobalUserBar() {
     );
   }
 
-  const hasCourse1 = isEnrolled('1');
+  const isHomePage = location.pathname === '/';
   const isPlayerPage = location.pathname.includes('/learn');
+  const activeEnrollments = (enrollments || []).filter((e) => e.status === 'active' || !e.status);
+  const hasActiveEnrollment = activeEnrollments.length > 0;
+
+  const primaryEnrollment = activeEnrollments[0];
+  const resumeCourseId = primaryEnrollment?.course_id || primaryEnrollment?.course?.id;
+  const resumeLessonId = primaryEnrollment?.last_watched_lesson?.id || (typeof primaryEnrollment?.last_watched_lesson === 'string' ? primaryEnrollment?.last_watched_lesson : null);
+  const resumeUrl = resumeCourseId
+    ? (resumeLessonId ? `/course/${resumeCourseId}/learn/${resumeLessonId}` : `/course/${resumeCourseId}/learn`)
+    : null;
 
   const handleLogout = async () => {
     try {
@@ -67,9 +76,10 @@ export default function GlobalUserBar() {
 
         {/* Quick Navigation Links */}
         <div className={styles.navSection}>
-          {hasCourse1 && !isPlayerPage && (
-            <Link to="/course/1/learn" className={styles.resumeLink} title="Resume Masterclass Video Player">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+          {/* Only show Resume Masterclass in navbar if NOT on homepage (homepage has primary hero CTA) */}
+          {!isHomePage && !isPlayerPage && hasActiveEnrollment && resumeUrl && (
+            <Link to={resumeUrl} className={styles.resumeLink} title="Resume Masterclass Video Player">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
                 <polygon points="5 3 19 12 5 21 5 3" />
               </svg>
               <span>Resume Masterclass</span>

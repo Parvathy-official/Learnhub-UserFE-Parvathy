@@ -3,7 +3,7 @@
 //  Rich, modern, high-converting digital product masterclass landing page
 // =========================================================
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../hooks/useAuth';
@@ -18,6 +18,17 @@ export default function Home() {
   const course = MOCK_COURSES[0];
 
   const userHasAccess = isAuthenticated && isEnrolled('1');
+
+  // Sticky bottom bar visibility upon scrolling past hero
+  const [showStickyBar, setShowStickyBar] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowStickyBar(window.scrollY > 450);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Accordion state for Modules
   const [openModule, setOpenModule] = useState(0);
@@ -140,7 +151,10 @@ export default function Home() {
           {userHasAccess && (
             <div className={styles.welcomeBackBanner} id="welcome-back-banner">
               <div className={styles.welcomeBackLeft}>
-                <span className={styles.welcomeBadge}>⚡ Enrolled Student</span>
+                <span className={styles.welcomeBadge}>
+                  <span className={styles.welcomeBadgeDot} />
+                  ENROLLED STUDENT
+                </span>
                 <p className={styles.welcomeText}>
                   Welcome back, <strong>{currentUser?.name || currentUser?.email || 'Student'}</strong>! You have full lifetime access to this masterclass.
                 </p>
@@ -156,22 +170,6 @@ export default function Home() {
                     <line x1="5" y1="12" x2="19" y2="12" />
                     <polyline points="12 5 19 12 12 19" />
                   </svg>
-                </button>
-                <button
-                  onClick={async () => {
-                    await logout();
-                    toast.success('Logged out successfully');
-                  }}
-                  className={styles.welcomeLogoutBtn}
-                  id="welcome-logout-btn"
-                  title="Sign out of your account"
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-                    <polyline points="16 17 21 12 16 7" />
-                    <line x1="21" y1="12" x2="9" y2="12" />
-                  </svg>
-                  <span>Log Out</span>
                 </button>
               </div>
             </div>
@@ -1084,49 +1082,51 @@ export default function Home() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────
-          13. PERSISTENT STATIC FLOATING BOTTOM BAR
+          13. PERSISTENT FLOATING BOTTOM BAR (Shown upon scroll)
          ───────────────────────────────────────────────────────── */}
-      <aside className={styles.floatingBar} aria-label="Quick Access Bar">
-        <div className={['container', styles.floatingInner].join(' ')}>
-          <div className={styles.floatingInfo}>
-            <div className={styles.floatingDot} />
-            <div className={styles.floatingTextWrap}>
-              <span className={styles.floatingTitle}>
-                Create & Sell Your First Digital Product With AI
-              </span>
-              <span className={styles.floatingMeta}>
-                3-Hour Practical Session • <strong className={styles.floatingPrice}>₹499</strong>
-              </span>
+      {showStickyBar && (
+        <aside className={styles.floatingBar} aria-label="Quick Access Bar" id="floating-quick-bar">
+          <div className={['container', styles.floatingInner].join(' ')}>
+            <div className={styles.floatingInfo}>
+              <div className={styles.floatingDot} />
+              <div className={styles.floatingTextWrap}>
+                <span className={styles.floatingTitle}>
+                  Create & Sell Your First Digital Product With AI
+                </span>
+                <span className={styles.floatingMeta}>
+                  3-Hour Practical Session • <strong className={styles.floatingPrice}>₹499</strong>
+                </span>
+              </div>
             </div>
-          </div>
 
-          {userHasAccess ? (
-            <button
-              className={styles.resumeHeroBtn}
-              onClick={() => navigate('/course/1/learn')}
-              id="floating-resume-btn"
-            >
-              <span>▶ Resume Masterclass</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
-            </button>
-          ) : (
-            <button
-              className={styles.floatingCtaBtn}
-              onClick={handleInstantAccess}
-              id="floating-get-access-btn"
-            >
-              <span>GET INSTANT ACCESS</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
-            </button>
-          )}
-        </div>
-      </aside>
+            {userHasAccess ? (
+              <button
+                className={styles.resumeHeroBtn}
+                onClick={() => navigate('/course/1/learn')}
+                id="floating-resume-btn"
+              >
+                <span>▶ Resume Masterclass</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </button>
+            ) : (
+              <button
+                className={styles.floatingCtaBtn}
+                onClick={handleInstantAccess}
+                id="floating-get-access-btn"
+              >
+                <span>GET INSTANT ACCESS</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </button>
+            )}
+          </div>
+        </aside>
+      )}
 
       {/* Lightbox / High-Res Inspection Modal */}
       {selectedResult && (

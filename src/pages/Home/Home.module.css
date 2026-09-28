@@ -15,21 +15,21 @@
    ───────────────────────────────────────────────────────── */
 .hero {
   position: relative;
-  padding: calc(var(--navbar-height) + 48px) 0 80px;
-  background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(6, 182, 212, 0.18), transparent 70%),
-              radial-gradient(ellipse 60% 40% at 80% 20%, rgba(14, 165, 233, 0.08), transparent 60%);
+  padding: calc(var(--navbar-height) + 20px) 0 60px;
+  background: radial-gradient(ellipse 80% 45% at 50% -5%, rgba(6, 182, 212, 0.14), transparent 70%),
+              radial-gradient(ellipse 60% 30% at 80% 15%, rgba(14, 165, 233, 0.06), transparent 60%);
   border-bottom: 1px solid var(--border);
   overflow: hidden;
 }
 
 .heroGlow {
   position: absolute;
-  top: 10%;
+  top: 5%;
   left: 50%;
   transform: translateX(-50%);
-  width: 600px;
-  height: 350px;
-  background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 70%);
+  width: 500px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, transparent 70%);
   filter: blur(60px);
   pointer-events: none;
   z-index: 0;
@@ -42,42 +42,43 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  max-width: 1080px;
+  max-width: 1040px;
 }
 
 .pillBadge {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 16px;
-  background: rgba(6, 182, 212, 0.12);
-  border: 1px solid rgba(6, 182, 212, 0.35);
+  gap: 6px;
+  padding: 4px 12px;
+  background: rgba(6, 182, 212, 0.08);
+  border: 1px solid rgba(6, 182, 212, 0.25);
   border-radius: var(--radius-full);
-  color: var(--primary-light);
-  font-size: 0.85rem;
+  color: #38BDF8;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  margin-bottom: var(--space-6);
-  box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+  margin-bottom: 12px;
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.1);
   animation: fadeIn 0.4s ease-out;
 }
 
 /* ── Enrolled Student Welcome Back Banner ── */
 .welcomeBackBanner {
   width: 100%;
-  max-width: 860px;
-  margin-bottom: 28px;
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.14) 0%, rgba(6, 182, 212, 0.1) 100%);
-  border: 1.5px solid rgba(16, 185, 129, 0.4);
-  border-radius: var(--radius-xl);
-  padding: 14px 22px;
+  max-width: 760px;
+  margin-bottom: 16px;
+  background: rgba(11, 17, 22, 0.85);
+  border: 1px solid rgba(6, 182, 212, 0.28);
+  border-radius: 12px;
+  padding: 10px 18px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(16, 185, 129, 0.15);
+  gap: 14px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(6, 182, 212, 0.08);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   animation: fadeIn 0.35s ease-out;
 }
 
@@ -89,164 +90,201 @@
 }
 
 .welcomeBadge {
-  background: #10B981;
-  color: #030708;
-  font-size: 0.72rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(6, 182, 212, 0.1);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  color: #06B6D4;
+  font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  padding: 4px 10px;
+  padding: 3px 8px;
   border-radius: var(--radius-full);
   white-space: nowrap;
 }
 
+.welcomeBadgeDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #06B6D4;
+  box-shadow: 0 0 6px #06B6D4;
+  animation: pulse 1.8s infinite;
+}
+
 .welcomeText {
-  color: #E2E8F0;
-  font-size: 0.9375rem;
-  line-height: 1.4;
+  color: #CBD5E1;
+  font-size: 0.875rem;
+  line-height: 1.35;
+  margin: 0;
 }
 
 .welcomeText strong {
-  color: #34D399;
+  color: #38BDF8;
+  font-weight: 700;
 }
 
 .resumeHeroBtn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
-  color: #FFFFFF;
-  font-size: 0.875rem;
-  font-weight: 800;
+  gap: 6px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #06B6D4 0%, #0EA5E9 100%);
+  color: #030708;
+  font-size: 0.8125rem;
+  font-weight: 750;
   border: none;
-  border-radius: var(--radius-full);
+  border-radius: 8px;
   cursor: pointer;
   white-space: nowrap;
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+  box-shadow: 0 2px 10px rgba(6, 182, 212, 0.25);
   transition: all var(--transition-fast);
+}
+
+.resumeHeroBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(6, 182, 212, 0.45);
+  filter: brightness(1.06);
 }
 
 .welcomeBackRight {
   display: flex;
   align-items: center;
-  gap: 10px;
   flex-shrink: 0;
-}
-
-.welcomeLogoutBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  background: rgba(239, 68, 68, 0.12);
-  color: #F87171;
-  font-size: 0.8125rem;
-  font-weight: 700;
-  border: 1px solid rgba(239, 68, 68, 0.35);
-  border-radius: var(--radius-full);
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all var(--transition-fast);
-}
-
-.welcomeLogoutBtn:hover {
-  background: rgba(239, 68, 68, 0.22);
-  border-color: rgba(239, 68, 68, 0.6);
-  color: #FCA5A5;
-  transform: translateY(-1px);
 }
 
 .heroResumeBtn {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 16px 36px;
-  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
-  color: #FFFFFF;
-  font-size: 1.05rem;
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #06B6D4 0%, #0EA5E9 100%);
+  color: #030708;
+  font-size: 1rem;
   font-weight: 800;
   letter-spacing: 0.04em;
   border: none;
   border-radius: var(--radius-xl);
   cursor: pointer;
-  box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
+  box-shadow: 0 0 25px rgba(6, 182, 212, 0.35);
   transition: all var(--transition-fast);
 }
 
 .heroResumeBtn:hover {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 0 40px rgba(16, 185, 129, 0.8);
-  filter: brightness(1.1);
+  box-shadow: 0 0 35px rgba(6, 182, 212, 0.6);
+  filter: brightness(1.06);
 }
 
 @media (max-width: 640px) {
+  .hero {
+    padding: calc(var(--navbar-height) + 12px) 0 40px;
+  }
   .welcomeBackBanner {
     flex-direction: column;
     align-items: stretch;
     text-align: center;
-    gap: 12px;
+    gap: 10px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
   }
   .welcomeBackLeft {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    gap: 6px;
+  }
+  .welcomeText {
+    font-size: 0.8125rem;
+  }
+  .welcomeBackRight {
+    width: 100%;
   }
   .resumeHeroBtn {
     justify-content: center;
     width: 100%;
+    padding: 8px 16px;
   }
 }
 
 .pillDot {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   background: var(--primary);
   border-radius: 50%;
-  box-shadow: 0 0 8px var(--primary);
+  box-shadow: 0 0 6px var(--primary);
   animation: pulse 1.8s infinite;
 }
 
 .heroTitle {
-  font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+  font-size: clamp(2rem, 4.2vw, 3.2rem);
   font-weight: 900;
   color: #FFFFFF;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
-  margin-bottom: var(--space-4);
-  background: linear-gradient(180deg, #FFFFFF 30%, #CFFAFE 100%);
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  margin-bottom: 20px;
+  max-width: 880px;
+  background: linear-gradient(180deg, #FFFFFF 40%, #E0F2FE 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
+.heroBannerWrap {
+  width: 100%;
+  max-width: 900px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.75), 0 0 20px rgba(6, 182, 212, 0.08);
+  margin-bottom: 24px;
+  cursor: pointer;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.heroBannerWrap:hover {
+  border-color: rgba(6, 182, 212, 0.4);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.85), 0 0 30px rgba(6, 182, 212, 0.18);
+  transform: translateY(-2px);
+}
+
+.heroBannerImg {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  border-radius: inherit;
+}
+
 .heroSubtitle {
-  font-size: clamp(1.15rem, 2.5vw, 1.45rem);
-  font-weight: 700;
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  font-weight: 600;
   color: var(--primary-light);
   line-height: 1.4;
-  margin-bottom: var(--space-5);
-  max-width: 780px;
+  margin-bottom: 8px;
+  max-width: 760px;
 }
 
 .heroDesc {
-  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  font-size: clamp(0.92rem, 1.5vw, 1.05rem);
   color: var(--text-secondary);
-  line-height: 1.7;
+  line-height: 1.6;
   max-width: 720px;
-  margin-bottom: var(--space-8);
+  margin-bottom: 24px;
 }
 
 .heroActionCard {
   display: flex;
   align-items: center;
   gap: var(--space-6);
-  padding: 12px 14px 12px 28px;
+  padding: 10px 14px 10px 24px;
   background: rgba(11, 17, 22, 0.85);
   backdrop-filter: blur(12px);
-  border: 1.5px solid rgba(6, 182, 212, 0.3);
+  border: 1.5px solid rgba(6, 182, 212, 0.25);
   border-radius: var(--radius-2xl);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(6, 182, 212, 0.15);
-  margin-bottom: var(--space-8);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.75), 0 0 20px rgba(6, 182, 212, 0.1);
+  margin-bottom: 24px;
   flex-wrap: wrap;
   justify-content: center;
 }
