@@ -96,7 +96,7 @@ export default function Checkout() {
     }
 
     toast.success('Instant Access Granted! Welcome to the Masterclass! 🎉');
-    navigate(`/payment-success?course=${validId}&orderId=${orderRef}`);
+    navigate(`/course/${validId}/learn`);
   };
 
   const handlePayment = async (e) => {
