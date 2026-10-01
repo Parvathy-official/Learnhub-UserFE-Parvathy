@@ -197,6 +197,15 @@
   }
 }
 
+@media (max-width: 480px) {
+  .content {
+    padding: 20px 14px;
+  }
+  .sidebar {
+    padding: 18px 14px;
+  }
+}
+
 .panelTitle {
   font-size: 1.25rem;
   font-weight: 700;

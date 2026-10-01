@@ -220,24 +220,125 @@
   }
 }
 
-@media (max-width: 768px) {
+.hamburgerBtn {
+  display: none;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #CBD5E1;
+  padding: 6px;
+  border-radius: var(--radius-md, 8px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  align-items: center;
+  justify-content: center;
+}
+
+.hamburgerBtn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #22D3EE;
+  border-color: rgba(6, 182, 212, 0.4);
+}
+
+.mobileDrawer {
+  position: absolute;
+  top: 70px;
+  left: 0;
+  right: 0;
+  background: rgba(3, 7, 8, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+  animation: slideDownNav 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideDownNav {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.mobileNavLink {
+  color: #CBD5E1;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.2s ease;
+}
+
+.mobileNavLink:hover {
+  background: rgba(6, 182, 212, 0.12);
+  color: #22D3EE;
+  border-color: rgba(6, 182, 212, 0.3);
+}
+
+@media (max-width: 860px) {
   .navLinks {
     display: none;
   }
+
+  .hamburgerBtn {
+    display: flex;
+  }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 540px) {
   .logoSubtext {
     display: none;
   }
-  
+
+  .actions {
+    gap: 8px;
+  }
+
   .staticCtaBtn {
-    padding: 8px 14px;
-    font-size: 0.78rem;
+    padding: 7px 12px;
+    font-size: 0.75rem;
+    gap: 6px;
   }
 
   .ctaPrice {
-    padding: 1px 6px;
-    font-size: 0.72rem;
+    padding: 1px 5px;
+    font-size: 0.7rem;
+  }
+
+  .resumeCtaBtn {
+    padding: 7px 12px;
+    font-size: 0.75rem;
+  }
+
+  .loginLink {
+    padding: 6px 9px;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .loginLink {
+    display: none;
+  }
+
+  .staticCtaBtn .ctaText {
+    display: none;
+  }
+
+  .resumeCtaBtn .ctaButtonText {
+    display: none;
+  }
+
+  .staticCtaBtn::after {
+    content: "ENROLL";
+    font-size: 0.75rem;
+  }
+
+  .staticCtaBtn {
+    padding: 6px 10px;
   }
 }

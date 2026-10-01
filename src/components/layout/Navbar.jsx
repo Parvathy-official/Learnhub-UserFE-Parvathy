@@ -6,6 +6,7 @@ import styles from './Navbar.module.css';
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
   const { currentUser, isAuthenticated } = useAuth();
   const { isEnrolled } = useCourseContext();
@@ -17,6 +18,11 @@ export default function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
 
   const scrollToPricing = (e) => {
     if (location.pathname === '/') {
@@ -60,7 +66,7 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* Navigation Links */}
+        {/* Desktop Navigation Links */}
         <div className={styles.navLinks}>
           <Link
             to="/"
@@ -109,7 +115,7 @@ export default function Navbar() {
               id="nav-resume-learning-btn"
             >
               <span className={styles.playIcon}>▶</span>
-              <span>Resume Masterclass</span>
+              <span className={styles.ctaButtonText}>Resume Masterclass</span>
             </Link>
           ) : (
             <a
@@ -123,8 +129,44 @@ export default function Navbar() {
               <span className={styles.ctaPrice}>₹499</span>
             </a>
           )}
+
+          {/* Hamburger toggle for mobile */}
+          <button
+            className={styles.hamburgerBtn}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle navigation menu"
+            aria-expanded={mobileMenuOpen}
+          >
+            {mobileMenuOpen ? (
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            ) : (
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            )}
+          </button>
         </div>
       </div>
+
+      {/* Mobile Drawer */}
+      {mobileMenuOpen && (
+        <div className={styles.mobileDrawer}>
+          <Link to="/" className={styles.mobileNavLink}>
+            Home
+          </Link>
+          <Link to="/courses" className={styles.mobileNavLink}>
+            All Courses
+          </Link>
+          <Link to="/my-learning" className={styles.mobileNavLink}>
+            My Learning
+          </Link>
+        </div>
+      )}
     </nav>
   );
 }

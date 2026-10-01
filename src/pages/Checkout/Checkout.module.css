@@ -210,6 +210,12 @@
   top: calc(var(--navbar-height) + 20px);
 }
 
+@media (max-width: 480px) {
+  .paymentPanel {
+    padding: 20px 14px;
+  }
+}
+
 .panelHeader {
   margin-bottom: var(--space-6);
 }
@@ -289,6 +295,12 @@
   margin: var(--space-2) 0;
 }
 
+@media (max-width: 360px) {
+  .totalBox {
+    padding: 10px 12px;
+  }
+}
+
 .totalLabel {
   font-size: 0.85rem;
   font-weight: 700;
@@ -306,6 +318,12 @@
   font-weight: 900;
   color: var(--primary);
   letter-spacing: -0.02em;
+}
+
+@media (max-width: 360px) {
+  .totalAmount {
+    font-size: 1.35rem;
+  }
 }
 
 .guarantees {

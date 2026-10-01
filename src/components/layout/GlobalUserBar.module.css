@@ -220,3 +220,54 @@
     padding: 5px 8px;
   }
 }
+
+@media (max-width: 480px) {
+  .wrapper {
+    top: 8px;
+    right: 8px;
+  }
+
+  .guestAccessBtn {
+    padding: 6px 10px 6px 8px;
+    font-size: 0.75rem;
+    gap: 6px;
+  }
+
+  .guestIconWrap {
+    width: 18px;
+    height: 18px;
+  }
+
+  .bar {
+    gap: 6px;
+    padding: 4px 8px;
+  }
+
+  .navSection {
+    gap: 4px;
+    padding-left: 6px;
+  }
+
+  .userName {
+    max-width: 65px;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .userName {
+    display: none;
+  }
+
+  .logoutBtn span {
+    display: none;
+  }
+
+  .logoutBtn {
+    padding: 5px;
+  }
+
+  .myCoursesLink span {
+    font-size: 0.7rem;
+  }
+}

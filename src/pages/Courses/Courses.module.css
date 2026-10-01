@@ -61,6 +61,14 @@
   max-width: 480px;
 }
 
+@media (max-width: 640px) {
+  .searchWrap {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
 .searchIcon {
   position: absolute;
   left: 14px;
@@ -308,5 +316,22 @@
 @media (max-width: 640px) {
   .grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .footerRow {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .actions {
+    width: 100%;
+  }
+  .buyBtn, .detailsBtn, .resumeBtn {
+    flex: 1;
+    text-align: center;
+    justify-content: center;
+    display: inline-flex;
+    align-items: center;
   }
 }

@@ -53,16 +53,14 @@ export default function CoursePlayer() {
           initial = allLessons[0];
         }
 
+        if (initial) setCurrentLesson(initial);
+
         // Preview lessons can be watched by anyone
         if (initial?.is_preview) {
-          setCurrentLesson(initial);
           setAccessDenied(false);
           setLoading(false);
           return;
         }
-
-        // For protected lessons, set initial lesson and check if user is authenticated and enrolled
-        if (initial) setCurrentLesson(initial);
 
         if (!isAuthenticated) {
           setLoading(false);
@@ -90,7 +88,28 @@ export default function CoursePlayer() {
     };
     load();
     return () => { isMounted = false; };
-  }, [courseId, lessonId, enrolled, isAuthenticated, enrollment?.last_watched_lesson, navigate]);
+  }, [courseId, enrolled, isAuthenticated, navigate]);
+
+  // Sync currentLesson whenever URL lessonId changes or course data is refreshed
+  useEffect(() => {
+    if (!course) return;
+    const allLessons = course.modules?.flatMap((m) => m.lessons) || [];
+    if (lessonId) {
+      const match = allLessons.find((l) => String(l.id) === String(lessonId));
+      if (match) {
+        setCurrentLesson(match);
+      }
+    } else if (currentLesson) {
+      const match = allLessons.find((l) => String(l.id) === String(currentLesson.id));
+      if (match) {
+        setCurrentLesson(match);
+      } else if (allLessons.length > 0) {
+        setCurrentLesson(allLessons[0]);
+      }
+    } else if (allLessons.length > 0) {
+      setCurrentLesson(allLessons[0]);
+    }
+  }, [course, lessonId]);
 
   // Fetch signed video URL when lesson changes
   useEffect(() => {
@@ -118,7 +137,7 @@ export default function CoursePlayer() {
     };
     fetchVideo();
     return () => { isMounted = false; };
-  }, [currentLesson, courseId, accessDenied, isAuthenticated]);
+  }, [currentLesson?.id, courseId, accessDenied, isAuthenticated]);
 
   const handleLessonSelect = useCallback((lesson) => {
     if (!enrolled && !lesson.is_preview) {
@@ -129,10 +148,11 @@ export default function CoursePlayer() {
       }
       return;
     }
-    setCurrentLesson(lesson);
+    const freshLesson = course?.modules?.flatMap((m) => m.lessons)?.find((l) => String(l.id) === String(lesson.id)) || lesson;
+    setCurrentLesson(freshLesson);
     navigate(`/course/${courseId}/learn/${lesson.id}`, { replace: true });
     setSidebarOpen(false);
-  }, [courseId, enrolled, isAuthenticated, navigate]);
+  }, [course, courseId, enrolled, isAuthenticated, navigate]);
 
   const handleMarkComplete = () => {
     if (!currentLesson) return;
@@ -310,15 +330,25 @@ export default function CoursePlayer() {
             )}
           </div>
 
-          {/* Lesson Metadata and Actions */}
+          {/* Lesson Metadata and Actions Card */}
           <div className={styles.lessonMeta}>
-            <div className={styles.lessonInfo}>
+            <div className={styles.lessonHeader}>
               <div className={styles.badgeRow}>
                 {currentLesson?.is_preview && <span className={styles.previewBadge}>Free Preview</span>}
                 <span className={styles.durationTag}>{currentLesson?.duration || '15 min'}</span>
               </div>
               <h1 className={styles.lessonTitle}>{currentLesson?.title || 'Course Lesson'}</h1>
             </div>
+
+            {/* Lesson Description (rendered below title, only when non-empty) */}
+            {Boolean(currentLesson?.description && String(currentLesson.description).trim()) && (
+              <div className={styles.lessonDescriptionBlock}>
+                <h2 className={styles.lessonDescriptionHeading}>About this lesson</h2>
+                <div className={styles.lessonDescriptionText}>
+                  {currentLesson.description}
+                </div>
+              </div>
+            )}
 
             <div className={styles.lessonControls}>
               <button
@@ -337,6 +367,7 @@ export default function CoursePlayer() {
                   onClick={handlePrev}
                   disabled={currentIdx <= 0}
                   title="Previous Lesson"
+                  aria-label="Previous Lesson"
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <polyline points="15 18 9 12 15 6" />
@@ -347,6 +378,7 @@ export default function CoursePlayer() {
                   onClick={handleNext}
                   disabled={currentIdx >= allLessons.length - 1}
                   title="Next Lesson"
+                  aria-label="Next Lesson"
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <polyline points="9 18 15 12 9 6" />
@@ -356,6 +388,15 @@ export default function CoursePlayer() {
             </div>
           </div>
         </div>
+
+        {/* Mobile Sidebar Backdrop */}
+        {sidebarOpen && (
+          <div
+            className={styles.sidebarBackdrop}
+            onClick={() => setSidebarOpen(false)}
+            aria-hidden="true"
+          />
+        )}
 
         {/* Right Sidebar: Curriculum */}
         <div className={[styles.sidebarWrapper, sidebarOpen ? styles.sidebarVisible : ''].filter(Boolean).join(' ')}>

@@ -164,9 +164,23 @@
   .profileCard {
     width: 100%;
     max-width: 100%;
+    padding: 10px 14px;
+    gap: 10px;
   }
 
   .title {
     font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .profileCard {
+    padding: 8px 10px;
+  }
+  
+  .avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 0.85rem;
   }
 }

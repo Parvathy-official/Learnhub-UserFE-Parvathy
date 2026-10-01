@@ -247,3 +247,43 @@
   font-size: 0.9375rem;
   margin: 0;
 }
+
+@media (max-width: 600px) {
+  .volumeSlider {
+    display: none;
+  }
+  
+  .controls {
+    padding: 30px 10px 8px;
+  }
+
+  .ctrlBtn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .speedWrap {
+    gap: 2px;
+    padding: 2px 2px;
+  }
+
+  .speedBtn {
+    font-size: 0.7rem;
+    padding: 2px 4px;
+  }
+}
+
+@media (max-width: 420px) {
+  .leftControls, .rightControls {
+    gap: 2px;
+  }
+
+  .speedBtn:not(.speedActive):not(:nth-child(2)) {
+    display: none;
+  }
+
+  .ctrlBtn {
+    width: 28px;
+    height: 28px;
+  }
+}

@@ -183,6 +183,10 @@ img {
   .container { padding: 0 var(--space-4); }
 }
 
+@media (max-width: 360px) {
+  .container { padding: 0 12px; }
+}
+
 /* Flex Utilities */
 .flex { display: flex; }
 .flex-col { flex-direction: column; }

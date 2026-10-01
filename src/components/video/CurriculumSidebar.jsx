@@ -55,9 +55,15 @@ function LessonItem({ lesson, isActive, isEnrolled, onSelect }) {
   );
 }
 
-export default function CurriculumSidebar({ modules = [], currentLessonId, isEnrolled = false, onLessonSelect, onSelectLesson }) {
+export default function CurriculumSidebar({ modules = [], currentLessonId, isEnrolled = false, onLessonSelect, onSelectLesson, onClose }) {
   const [expanded, setExpanded] = useState(() => modules.map((_, i) => i === 0));
-  const handleSelect = onLessonSelect || onSelectLesson;
+  const handleSelect = (lesson) => {
+    const fn = onLessonSelect || onSelectLesson;
+    if (fn) fn(lesson);
+    if (onClose && window.innerWidth <= 960) {
+      onClose();
+    }
+  };
 
   const toggleModule = (index) => {
     setExpanded((prev) => {
@@ -77,10 +83,24 @@ export default function CurriculumSidebar({ modules = [], currentLessonId, isEnr
     <aside className={styles.sidebar} aria-label="Course curriculum">
       {/* Header */}
       <div className={styles.header}>
-        <h3 className={styles.headerTitle}>Course Content</h3>
-        <p className={styles.headerMeta}>
-          {completedLessons}/{totalLessons} completed
-        </p>
+        <div className={styles.headerLeft}>
+          <h3 className={styles.headerTitle}>Course Content</h3>
+          <p className={styles.headerMeta}>
+            {completedLessons}/{totalLessons} completed
+          </p>
+        </div>
+        {onClose && (
+          <button
+            className={styles.closeDrawerBtn}
+            onClick={onClose}
+            aria-label="Close curriculum drawer"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        )}
       </div>
 
       {/* Modules */}
@@ -112,7 +132,7 @@ export default function CurriculumSidebar({ modules = [], currentLessonId, isEnr
                   <LessonItem
                     key={lesson.id}
                     lesson={lesson}
-                    isActive={lesson.id === currentLessonId}
+                    isActive={String(lesson.id) === String(currentLessonId)}
                     isEnrolled={isEnrolled}
                     onSelect={handleSelect}
                   />

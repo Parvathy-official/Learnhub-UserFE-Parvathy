@@ -49,56 +49,56 @@ export const MOCK_COURSES = [
         id: 'm1',
         title: 'Module 1 — Introduction to Digital Products',
         lessons: [
-          { id: 'l1', title: 'Lesson 1.1 — The Power of Digital Assets & Zero Inventory Economics', duration: '12:30', is_preview: true, is_completed: true, is_locked: false },
-          { id: 'l2', title: 'Lesson 1.2 — The 5-Step Formula: Problem → Solution → Package → Promote → Sell', duration: '14:20', is_preview: true, is_completed: false, is_locked: false },
+          { id: 'l1', title: 'Lesson 1.1 — The Power of Digital Assets & Zero Inventory Economics', description: 'This lesson introduces the fundamentals of digital products and explains how they are structured, created, and delivered to customers with zero inventory overhead.', duration: '12:30', is_preview: true, is_completed: true, is_locked: false },
+          { id: 'l2', title: 'Lesson 1.2 — The 5-Step Formula: Problem → Solution → Package → Promote → Sell', description: 'Learn the proven 5-step framework to transform your industry knowledge into high-margin digital assets that sell on autopilot.', duration: '14:20', is_preview: true, is_completed: false, is_locked: false },
         ],
       },
       {
         id: 'm2',
         title: 'Module 2 — Niche Discovery',
         lessons: [
-          { id: 'l3', title: 'Lesson 2.1 — Discovering Your Profitable Knowledge Niche', duration: '15:40', is_preview: false, is_completed: false, is_locked: true },
-          { id: 'l4', title: 'Lesson 2.2 — AI Prompts for Market & Competitor Analysis', duration: '18:15', is_preview: false, is_completed: false, is_locked: true },
+          { id: 'l3', title: 'Lesson 2.1 — Discovering Your Profitable Knowledge Niche', description: 'Step-by-step breakdown to identify underserved market gaps where customers are actively paying for actionable solutions.', duration: '15:40', is_preview: false, is_completed: false, is_locked: true },
+          { id: 'l4', title: 'Lesson 2.2 — AI Prompts for Market & Competitor Analysis', description: 'Leverage bespoke AI prompts to quickly extract competitor strengths, weaknesses, customer pain points, and pricing strategies.', duration: '18:15', is_preview: false, is_completed: false, is_locked: true },
         ],
       },
       {
         id: 'm3',
         title: 'Module 3 — Solve Problems with Digital Products',
         lessons: [
-          { id: 'l5', title: 'Lesson 3.1 — Identifying High-Pain Urgent Problems Customers Pay For', duration: '16:10', is_preview: false, is_completed: false, is_locked: true },
-          { id: 'l6', title: 'Lesson 3.2 — Structuring Your High-Value Solution & Offer', duration: '14:50', is_preview: false, is_completed: false, is_locked: true },
+          { id: 'l5', title: 'Lesson 3.1 — Identifying High-Pain Urgent Problems Customers Pay For', description: 'Discover how to isolate urgent, burning problems that convert casual visitors into immediate buyers.', duration: '16:10', is_preview: false, is_completed: false, is_locked: true },
+          { id: 'l6', title: 'Lesson 3.2 — Structuring Your High-Value Solution & Offer', description: 'Package your knowledge into an irresistible offer structure with clear deliverables and bonuses.', duration: '14:50', is_preview: false, is_completed: false, is_locked: true },
         ],
       },
       {
         id: 'm4',
         title: 'Module 4 — Create Your Digital Product with AI',
         lessons: [
-          { id: 'l7', title: 'Lesson 4.1 — AI-Powered Research, Planning & Outlining SOPs', duration: '22:40', is_preview: false, is_completed: false, is_locked: true },
-          { id: 'l8', title: 'Lesson 4.2 — Generating Ebooks, Guides, Templates & Toolkits Fast', duration: '25:10', is_preview: false, is_completed: false, is_locked: true },
+          { id: 'l7', title: 'Lesson 4.1 — AI-Powered Research, Planning & Outlining SOPs', description: 'Use structured prompt workflows to plan and outline standard operating procedures, guides, and worksheets in minutes.', duration: '22:40', is_preview: false, is_completed: false, is_locked: true },
+          { id: 'l8', title: 'Lesson 4.2 — Generating Ebooks, Guides, Templates & Toolkits Fast', description: 'Rapidly format, generate, and polish ready-to-sell toolkits, Notion dashboards, and downloadable templates.', duration: '25:10', is_preview: false, is_completed: false, is_locked: true },
         ],
       },
       {
         id: 'm5',
         title: 'Module 5 — Host Your Digital Product',
         lessons: [
-          { id: 'l9', title: 'Lesson 5.1 — Instant Hosting & Zero-Code Landing Pages', duration: '17:30', is_preview: false, is_completed: false, is_locked: true },
-          { id: 'l10', title: 'Lesson 5.2 — Automated Checkout, Payments & Digital File Delivery', duration: '19:40', is_preview: false, is_completed: false, is_locked: true },
+          { id: 'l9', title: 'Lesson 5.1 — Instant Hosting & Zero-Code Landing Pages', description: 'Deploy conversion-optimized product landing pages in under 30 minutes without writing a single line of code.', duration: '17:30', is_preview: false, is_completed: false, is_locked: true },
+          { id: 'l10', title: 'Lesson 5.2 — Automated Checkout, Payments & Digital File Delivery', description: 'Connect instant payment gateways with automated email receipt dispatch and direct digital asset delivery.', duration: '19:40', is_preview: false, is_completed: false, is_locked: true },
         ],
       },
       {
         id: 'm6',
         title: 'Module 6 — Create Content & Sell Your Digital Product',
         lessons: [
-          { id: 'l11', title: 'Lesson 6.1 — AI Prompts for Viral Video Scripts, Hooks & Posters', duration: '20:15', is_preview: false, is_completed: false, is_locked: true },
-          { id: 'l12', title: 'Lesson 6.2 — Organic Audience Building & Content Distribution', duration: '18:00', is_preview: false, is_completed: false, is_locked: true },
+          { id: 'l11', title: 'Lesson 6.1 — AI Prompts for Viral Video Scripts, Hooks & Posters', description: 'Master viral short-form copywriting prompts tailored for Reels, YouTube Shorts, and high-CTR social posters.', duration: '20:15', is_preview: false, is_completed: false, is_locked: true },
+          { id: 'l12', title: 'Lesson 6.2 — Organic Audience Building & Content Distribution', description: 'A systematic blueprint to build an organic following that reliably feeds targeted traffic into your sales funnel.', duration: '18:00', is_preview: false, is_completed: false, is_locked: true },
         ],
       },
       {
         id: 'm7',
         title: 'Module 7 — Set Up & Launch Meta Ads',
         lessons: [
-          { id: 'l13', title: 'Lesson 7.1 — Beginner-Friendly Meta Ads Setup & Campaign Architecture', duration: '24:20', is_preview: false, is_completed: false, is_locked: true },
-          { id: 'l14', title: 'Lesson 7.2 — Launching, Testing & Scaling Profitable ₹499 Ad Sets', duration: '26:30', is_preview: false, is_completed: false, is_locked: true },
+          { id: 'l13', title: 'Lesson 7.1 — Beginner-Friendly Meta Ads Setup & Campaign Architecture', description: 'Complete walkthrough of Meta Business Manager setup, CAPI configuration, and audience targeting architecture.', duration: '24:20', is_preview: false, is_completed: false, is_locked: true },
+          { id: 'l14', title: 'Lesson 7.2 — Launching, Testing & Scaling Profitable ₹499 Ad Sets', description: 'Launch and scale profitable ad sets with small daily test budgets while maintaining high ROAS.', duration: '26:30', is_preview: false, is_completed: false, is_locked: true },
         ],
       },
     ],
