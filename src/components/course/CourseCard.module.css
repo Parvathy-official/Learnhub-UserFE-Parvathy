@@ -162,3 +162,30 @@
   color: #030708;
   border-color: var(--primary);
 }
+
+@media (max-width: 480px) {
+  .body {
+    padding: 14px 14px 16px;
+    gap: 6px;
+  }
+  .title {
+    font-size: 0.9rem;
+  }
+  .currentPrice {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .body {
+    padding: 12px 10px 14px;
+  }
+  .footerRow {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .cta {
+    width: 100%;
+    text-align: center;
+  }
+}

@@ -185,6 +185,12 @@
     padding: 12px;
   }
   .thumbWrap {
-    height: 130px;
+    height: 140px;
+  }
+  .actionBtn {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 14px;
+    font-size: 0.875rem;
   }
 }

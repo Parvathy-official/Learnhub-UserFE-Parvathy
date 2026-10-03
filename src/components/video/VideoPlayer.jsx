@@ -230,7 +230,7 @@ export default function VideoPlayer({ videoUrl, src, lessonTitle, title, initial
         <iframe
           src={videoSource.embedUrl}
           title={activeTitle || 'Lesson Video'}
-          style={{ width: '100%', height: '100%', border: 'none', minHeight: '480px' }}
+          className={styles.iframeEmbed}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         />

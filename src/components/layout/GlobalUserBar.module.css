@@ -255,6 +255,12 @@
 }
 
 @media (max-width: 360px) {
+  .wrapper {
+    top: 6px;
+    right: 6px;
+    max-width: calc(100vw - 12px);
+  }
+
   .userName {
     display: none;
   }
@@ -265,6 +271,9 @@
 
   .logoutBtn {
     padding: 5px;
+    width: 26px;
+    height: 26px;
+    justify-content: center;
   }
 
   .myCoursesLink span {

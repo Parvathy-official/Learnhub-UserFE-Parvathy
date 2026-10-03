@@ -79,7 +79,12 @@
   .header {
     padding: 14px 16px;
   }
+  .closeBtn {
+    min-width: 36px;
+    min-height: 36px;
+    padding: 6px;
+  }
   .body {
-    padding: 16px;
+    padding: 16px 14px;
   }
 }

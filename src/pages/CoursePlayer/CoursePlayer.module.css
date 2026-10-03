@@ -23,7 +23,8 @@
 
 @media (max-width: 640px) {
   .topBar {
-    padding: 10px 14px;
+    padding: 10px 12px;
+    gap: 8px;
   }
 }
 
@@ -43,6 +44,7 @@
   border-radius: var(--radius-md);
   text-decoration: none;
   min-width: 0;
+  flex-shrink: 1;
 }
 .backBtn:hover { color: var(--primary); background: var(--primary-bg); }
 .backText {
@@ -54,20 +56,24 @@
 
 @media (max-width: 768px) {
   .backText {
-    max-width: 240px;
+    max-width: 220px;
   }
 }
 
 @media (max-width: 480px) {
   .backText {
-    max-width: 140px;
+    max-width: 130px;
     font-size: 0.8125rem;
+  }
+  .backBtn {
+    padding: 4px 6px;
+    gap: 4px;
   }
 }
 
 @media (max-width: 360px) {
   .backText {
-    max-width: 100px;
+    max-width: 90px;
     font-size: 0.75rem;
   }
 }
@@ -91,6 +97,14 @@
 }
 .sidebarToggle:hover { border-color: var(--primary); color: var(--primary); }
 @media (max-width: 960px) { .sidebarToggle { display: flex; } }
+
+@media (max-width: 480px) {
+  .sidebarToggle {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+    gap: 4px;
+  }
+}
 
 /* Main layout grid */
 .mainGrid, .layout {
@@ -129,8 +143,16 @@
   }
 }
 
+@media (max-width: 360px) {
+  .playerColumn, .videoCol {
+    padding: 8px 6px;
+    gap: 10px;
+  }
+}
+
 .videoWrapper {
   width: 100%;
+  max-width: 100%;
   border-radius: var(--radius-xl);
   overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
@@ -159,6 +181,8 @@
   justify-content: center;
   color: var(--text-tertiary);
   font-size: 0.95rem;
+  padding: 16px;
+  text-align: center;
 }
 
 /* Lesson Metadata and Actions Card */
@@ -170,6 +194,20 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   gap: 18px;
+}
+
+@media (max-width: 640px) {
+  .lessonMeta {
+    padding: 18px 16px;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .lessonMeta {
+    padding: 14px 12px;
+    gap: 12px;
+  }
 }
 
 .lessonHeader {
@@ -208,11 +246,18 @@
   color: var(--text-dark);
   margin: 0;
   line-height: 1.4;
+  word-break: break-word;
+}
+
+@media (max-width: 480px) {
+  .lessonTitle {
+    font-size: 1.05rem;
+  }
 }
 
 /* Lesson Description Block */
 .lessonDescriptionBlock {
-  padding-top: 16px;
+  padding-top: 14px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -220,32 +265,40 @@
   font-size: 0.95rem;
   font-weight: 700;
   color: var(--text-dark);
-  margin: 0 0 10px;
+  margin: 0 0 8px;
   letter-spacing: -0.01em;
 }
 
 .lessonDescriptionText {
   font-size: 0.9375rem;
-  line-height: 1.7;
+  line-height: 1.65;
   color: var(--text-secondary);
   margin: 0;
   white-space: pre-wrap;
   word-break: break-word;
 }
 
+@media (max-width: 480px) {
+  .lessonDescriptionText {
+    font-size: 0.85rem;
+    line-height: 1.55;
+  }
+}
+
 .lessonControls {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
   flex-wrap: wrap;
-  padding-top: 16px;
+  padding-top: 14px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .completeBtn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   padding: 9px 18px;
   border-radius: var(--radius-lg);
@@ -257,6 +310,7 @@
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border);
   color: var(--text-dark);
+  min-height: 40px;
 }
 
 .completeBtn:hover {
@@ -273,7 +327,7 @@
 .navBtns {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   margin-left: auto;
 }
 
@@ -281,14 +335,15 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-lg);
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border);
   color: var(--text-dark);
   cursor: pointer;
   transition: all var(--transition-fast);
+  flex-shrink: 0;
 }
 
 .navBtn:hover:not(:disabled) {
@@ -300,6 +355,20 @@
 .navBtn:disabled {
   opacity: 0.35;
   cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .lessonControls {
+    gap: 10px;
+  }
+  .completeBtn {
+    flex: 1;
+    padding: 8px 14px;
+    font-size: 0.8125rem;
+  }
+  .navBtns {
+    margin-left: 0;
+  }
 }
 
 /* Sidebar Wrapper */
@@ -354,6 +423,7 @@
 
 .accessDeniedCard {
   max-width: 480px;
+  width: 100%;
   text-align: center;
   background: var(--card-bg);
   border: 1px solid var(--border);
@@ -366,6 +436,19 @@
 @media (max-width: 480px) {
   .accessDeniedCard {
     padding: 28px 16px;
+  }
+  .accessActions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .accessActions button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+  .accessDeniedCard {
+    padding: 20px 12px;
   }
 }
 
@@ -380,8 +463,20 @@
   box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
 }
 
+@media (max-width: 480px) {
+  .lockIcon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 16px;
+  }
+}
+
 .accessTitle { font-size: 1.5rem; margin: 0 0 12px; }
+@media (max-width: 480px) { .accessTitle { font-size: 1.25rem; } }
+
 .accessDesc { color: var(--text-secondary); margin: 0 0 var(--space-6); line-height: 1.7; }
+@media (max-width: 480px) { .accessDesc { font-size: 0.875rem; margin-bottom: 20px; } }
+
 .accessActions { display: flex; gap: var(--space-3); justify-content: center; flex-wrap: wrap; }
 
 /* Loading */
@@ -393,6 +488,7 @@
   justify-content: center;
   gap: var(--space-4);
   color: var(--text-secondary);
+  padding: 40px 16px;
 }
 
 .spinner {
@@ -403,3 +499,4 @@
   animation: spin 0.8s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
+

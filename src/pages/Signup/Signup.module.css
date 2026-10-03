@@ -1,12 +1,17 @@
-/* Reuse Login card styles */
 .page {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: calc(var(--navbar-height) + 40px) var(--space-4) var(--space-12);
+  padding: calc(var(--navbar-height, 70px) + 36px) var(--space-4) var(--space-12);
   background: radial-gradient(ellipse at 50% 30%, #081721 0%, #030708 75%);
   min-height: 100vh;
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: calc(var(--navbar-height, 70px) + 16px) 12px 40px;
+  }
 }
 
 .card {
@@ -23,7 +28,8 @@
   from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
-@media (max-width: 480px) { .card { padding: 28px 24px; } }
+@media (max-width: 480px) { .card { padding: 24px 18px; } }
+@media (max-width: 360px) { .card { padding: 18px 12px; } }
 
 .logo {
   display: flex; align-items: center; justify-content: center;

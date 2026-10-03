@@ -1,10 +1,27 @@
 .page {
   flex: 1;
-  padding: calc(var(--navbar-height) + 40px) 0 80px;
+  padding: calc(var(--navbar-height, 70px) + 36px) 0 80px;
+  background: var(--bg);
+  min-height: 100vh;
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: calc(var(--navbar-height, 70px) + 16px) 0 50px;
+  }
 }
 
 .header {
   margin-bottom: var(--space-8);
+}
+
+@media (max-width: 480px) {
+  .header {
+    margin-bottom: var(--space-5);
+  }
+  .title {
+    font-size: 1.5rem;
+  }
 }
 
 .title {
@@ -28,6 +45,7 @@
 @media (max-width: 900px) {
   .layout {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
 }
 

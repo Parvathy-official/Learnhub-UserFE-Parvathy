@@ -321,6 +321,19 @@
 }
 
 @media (max-width: 380px) {
+  .logo {
+    gap: 8px;
+  }
+
+  .logoIcon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .logoText {
+    font-size: 1rem;
+  }
+
   .loginLink {
     display: none;
   }
@@ -338,7 +351,28 @@
     font-size: 0.75rem;
   }
 
-  .staticCtaBtn {
+  .resumeCtaBtn::after {
+    content: "RESUME";
+    font-size: 0.75rem;
+  }
+
+  .staticCtaBtn, .resumeCtaBtn {
     padding: 6px 10px;
+    gap: 4px;
+  }
+}
+
+@media (max-width: 340px) {
+  .navbar {
+    height: 60px;
+    min-height: 60px;
+  }
+  
+  .mobileDrawer {
+    top: 60px;
+  }
+
+  .logoText {
+    font-size: 0.9rem;
   }
 }

@@ -21,6 +21,7 @@
 
 .headerLeft {
   flex: 1;
+  min-width: 0;
 }
 
 .closeDrawerBtn {
@@ -28,8 +29,8 @@
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
   color: #CBD5E1;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: var(--radius-md, 8px);
   align-items: center;
   justify-content: center;
@@ -95,6 +96,7 @@
   color: var(--text-dark);
   flex: 1;
   line-height: 1.4;
+  word-break: break-word;
 }
 
 .moduleRight {
@@ -185,6 +187,7 @@
   color: var(--text-primary);
   line-height: 1.5;
   margin-bottom: 3px;
+  word-break: break-word;
 }
 .active .lessonTitle {
   color: var(--primary);
@@ -195,6 +198,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
+  flex-wrap: wrap;
 }
 
 .previewBadge {
@@ -212,4 +216,37 @@
   font-size: 0.72rem;
   color: var(--text-tertiary);
   font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 12px 14px;
+  }
+  .moduleHeader {
+    padding: 12px 14px;
+    gap: 8px;
+  }
+  .lesson {
+    padding: 10px 14px;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 360px) {
+  .header {
+    padding: 10px 12px;
+  }
+  .moduleHeader {
+    padding: 10px 12px;
+  }
+  .lesson {
+    padding: 9px 10px;
+    gap: 8px;
+  }
+  .moduleTitle {
+    font-size: 0.8125rem;
+  }
+  .lessonTitle {
+    font-size: 0.78rem;
+  }
 }

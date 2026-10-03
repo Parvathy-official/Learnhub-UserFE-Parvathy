@@ -289,6 +289,15 @@
   justify-content: center;
 }
 
+@media (max-width: 480px) {
+  .heroActionCard {
+    padding: 16px 14px;
+    gap: 12px;
+    width: 100%;
+    flex-direction: column;
+  }
+}
+
 .heroPriceWrap {
   display: flex;
   align-items: baseline;
@@ -302,6 +311,12 @@
   letter-spacing: -0.03em;
 }
 
+@media (max-width: 480px) {
+  .heroPrice {
+    font-size: 1.85rem;
+  }
+}
+
 .heroPriceLabel {
   font-size: 0.9rem;
   color: var(--text-tertiary);
@@ -311,6 +326,7 @@
 .heroCtaBtn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   padding: 16px 32px;
   background: linear-gradient(135deg, #06B6D4 0%, #0EA5E9 100%);
@@ -323,6 +339,14 @@
   cursor: pointer;
   box-shadow: 0 0 25px rgba(6, 182, 212, 0.4);
   transition: all var(--transition-fast);
+}
+
+@media (max-width: 480px) {
+  .heroCtaBtn {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 0.925rem;
+  }
 }
 
 .heroCtaBtn:hover {
@@ -338,6 +362,7 @@
   align-items: center;
   gap: 8px;
   justify-content: center;
+  width: 100%;
 }
 
 .heroStudentAccessBadge {
@@ -353,6 +378,15 @@
   text-decoration: none;
   transition: all var(--transition-fast);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(6, 182, 212, 0.15);
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .heroStudentAccessBadge {
+    padding: 8px 14px;
+    font-size: 0.8125rem;
+    gap: 6px;
+  }
 }
 
 .heroStudentAccessBadge:hover {
@@ -379,6 +413,12 @@
   justify-content: center;
   gap: var(--space-6);
   flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+  .heroTrustGrid {
+    gap: 12px;
+  }
 }
 
 .trustItem {
@@ -593,11 +633,25 @@
   gap: var(--space-4);
 }
 
+@media (max-width: 480px) {
+  .moduleHeader {
+    padding: 14px 16px;
+    gap: 8px;
+  }
+}
+
 .moduleHeaderLeft {
   display: flex;
   align-items: center;
   gap: var(--space-4);
   flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 480px) {
+  .moduleHeaderLeft {
+    gap: 8px;
+  }
 }
 
 .moduleIndexBadge {
@@ -608,6 +662,7 @@
   padding: 4px 10px;
   border-radius: var(--radius-md);
   border: 1px solid rgba(6, 182, 212, 0.2);
+  flex-shrink: 0;
 }
 
 .moduleTitleText {
@@ -615,12 +670,20 @@
   font-weight: 700;
   color: var(--text-dark);
   letter-spacing: -0.01em;
+  word-break: break-word;
+}
+
+@media (max-width: 480px) {
+  .moduleTitleText {
+    font-size: 0.9375rem;
+  }
 }
 
 .moduleHeaderRight {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-shrink: 0;
 }
 
 .moduleLessonsCount {
@@ -632,6 +695,12 @@
   border-radius: var(--radius-full);
 }
 
+@media (max-width: 480px) {
+  .moduleLessonsCount {
+    display: none;
+  }
+}
+
 .accordionIcon {
   color: var(--primary);
   display: flex;
@@ -641,6 +710,12 @@
 .moduleBody {
   padding: 0 24px 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+@media (max-width: 480px) {
+  .moduleBody {
+    padding: 0 14px 16px;
+  }
 }
 
 .lessonsContainer {
@@ -658,23 +733,41 @@
   background: rgba(255, 255, 255, 0.02);
   border-radius: var(--radius-md);
   border: 1px solid rgba(255, 255, 255, 0.03);
+  gap: 8px;
+}
+
+@media (max-width: 360px) {
+  .lessonRow {
+    padding: 8px 10px;
+  }
 }
 
 .lessonLeft {
   display: flex;
   align-items: center;
   gap: 10px;
+  min-width: 0;
+  flex: 1;
 }
 
 .lessonTitle {
   font-size: 0.9rem;
   font-weight: 400;
   color: var(--text-primary);
+  word-break: break-word;
+}
+
+@media (max-width: 480px) {
+  .lessonTitle {
+    font-size: 0.8125rem;
+  }
 }
 
 .lessonDuration {
   font-size: 0.8rem;
   color: var(--text-tertiary);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .curriculumCta {
@@ -926,11 +1019,25 @@
   margin-bottom: var(--space-12);
 }
 
+@media (max-width: 480px) {
+  .formulaBox {
+    padding: 24px 14px;
+    margin-bottom: var(--space-8);
+  }
+}
+
 .formulaTitle {
   font-size: 2rem;
   font-weight: 900;
   color: var(--text-dark);
   margin-bottom: var(--space-8);
+}
+
+@media (max-width: 480px) {
+  .formulaTitle {
+    font-size: 1.4rem;
+    margin-bottom: var(--space-4);
+  }
 }
 
 .pipeline {
@@ -941,6 +1048,12 @@
   flex-wrap: wrap;
 }
 
+@media (max-width: 480px) {
+  .pipeline {
+    gap: 8px;
+  }
+}
+
 .pipeStep {
   padding: 12px 20px;
   background: rgba(255, 255, 255, 0.04);
@@ -949,6 +1062,13 @@
   font-size: 0.95rem;
   font-weight: 700;
   color: var(--text-primary);
+}
+
+@media (max-width: 480px) {
+  .pipeStep {
+    padding: 8px 14px;
+    font-size: 0.8125rem;
+  }
 }
 
 .pipeArrow {
@@ -973,6 +1093,12 @@
   box-shadow: 0 0 40px rgba(6, 182, 212, 0.1);
 }
 
+@media (max-width: 480px) {
+  .aiSpeedBox {
+    padding: 24px 14px;
+  }
+}
+
 .aiBadge {
   display: inline-block;
   font-size: 0.75rem;
@@ -993,10 +1119,23 @@
   margin-bottom: var(--space-2);
 }
 
+@media (max-width: 480px) {
+  .aiTitle {
+    font-size: 1.35rem;
+  }
+}
+
 .aiLead {
   font-size: 1.05rem;
   color: var(--text-secondary);
   margin-bottom: var(--space-6);
+}
+
+@media (max-width: 480px) {
+  .aiLead {
+    font-size: 0.875rem;
+    margin-bottom: var(--space-4);
+  }
 }
 
 .aiSteps {
@@ -1008,6 +1147,13 @@
   margin-bottom: var(--space-6);
 }
 
+@media (max-width: 480px) {
+  .aiSteps {
+    gap: 8px;
+    margin-bottom: var(--space-4);
+  }
+}
+
 .aiStepItem {
   padding: 10px 18px;
   background: rgba(6, 182, 212, 0.08);
@@ -1016,6 +1162,13 @@
   font-size: 0.9rem;
   font-weight: 700;
   color: var(--primary-light);
+}
+
+@media (max-width: 480px) {
+  .aiStepItem {
+    padding: 8px 12px;
+    font-size: 0.78rem;
+  }
 }
 
 .aiArrow {
@@ -1030,6 +1183,12 @@
   max-width: 640px;
   margin: 0 auto;
   line-height: 1.6;
+}
+
+@media (max-width: 480px) {
+  .aiNote {
+    font-size: 0.85rem;
+  }
 }
 
 /* ─────────────────────────────────────────────────────────
