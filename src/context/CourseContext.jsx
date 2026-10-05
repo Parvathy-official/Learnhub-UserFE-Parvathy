@@ -4,7 +4,6 @@
 
 import { createContext, useState, useCallback, useEffect } from 'react';
 import courseService from '../services/courseService';
-import { MOCK_ENROLLMENTS, MOCK_PURCHASES } from '../utils/mockData';
 
 const CourseContext = createContext(null);
 
@@ -40,13 +39,17 @@ export function CourseProvider({ children }) {
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_ENROLLMENTS_KEY, JSON.stringify(enrollments));
-    } catch {}
+    } catch {
+      // Ignore storage write errors
+    }
   }, [enrollments]);
 
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_PURCHASES_KEY, JSON.stringify(purchases));
-    } catch {}
+    } catch {
+      // Ignore storage write errors
+    }
   }, [purchases]);
 
   useEffect(() => {

@@ -2,7 +2,6 @@
 //  Purchase History Page — Simple Paid Online Course Platform
 // =========================================================
 
-import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCourseContext } from '../../hooks/useCourses';
 import { formatPrice, formatDate } from '../../utils/helpers';

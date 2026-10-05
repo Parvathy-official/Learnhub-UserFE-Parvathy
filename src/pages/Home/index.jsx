@@ -5,7 +5,6 @@
 
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import toast from 'react-hot-toast';
 import { useAuth } from '../../hooks/useAuth';
 import { useCourseContext } from '../../hooks/useCourses';
 import { MOCK_COURSES } from '../../utils/mockData';
@@ -13,7 +12,7 @@ import styles from './Home.module.css';
 
 export default function Home() {
   const navigate = useNavigate();
-  const { currentUser, isAuthenticated, logout } = useAuth();
+  const { currentUser, isAuthenticated } = useAuth();
   const { isEnrolled } = useCourseContext();
   const course = MOCK_COURSES[0];
 
@@ -44,22 +43,6 @@ export default function Home() {
       navigate('/course/1/learn');
     } else {
       navigate('/checkout/1');
-    }
-  };
-
-  const scrollToPricing = (e) => {
-    e.preventDefault();
-    const el = document.getElementById('pricing');
-    if (el) {
-      const offset = 80;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = el.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
     }
   };
 

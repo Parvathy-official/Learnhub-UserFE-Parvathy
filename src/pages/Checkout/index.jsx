@@ -17,12 +17,13 @@ import styles from './Checkout.module.css';
 export default function Checkout() {
   const { courseId } = useParams();
   const validId = courseId || '1';
-  const { currentUser, updateUser, setAuthSession, isAuthenticated } = useAuth();
+  const { currentUser, updateUser, setAuthSession } = useAuth();
   const { addEnrollment, addPurchase, fetchEnrollments } = useCourseContext();
   const navigate = useNavigate();
 
   const pollerRef = useRef(null);
   const isFinishedRef = useRef(false);
+  const completedRef = useRef(false);
 
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -36,7 +37,8 @@ export default function Checkout() {
   useEffect(() => {
     if (currentUser?.name && !name) setName(currentUser.name);
     if (currentUser?.email && !email) setEmail(currentUser.email);
-  }, [currentUser]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentUser?.name, currentUser?.email]);
 
   useEffect(() => {
     courseService
@@ -54,6 +56,7 @@ export default function Checkout() {
   useEffect(() => {
     return () => {
       isFinishedRef.current = true;
+      completedRef.current = true;
       if (pollerRef.current) {
         clearInterval(pollerRef.current);
         pollerRef.current = null;
@@ -63,7 +66,10 @@ export default function Checkout() {
 
   // Complete purchase, authenticate user, refresh enrollments, and redirect
   const completeSuccessfulCheckout = async (userData, accessToken, refreshToken, orderRef) => {
+    if (completedRef.current) return;
+    completedRef.current = true;
     isFinishedRef.current = true;
+
     if (pollerRef.current) {
       clearInterval(pollerRef.current);
       pollerRef.current = null;
@@ -136,6 +142,7 @@ export default function Checkout() {
 
     setPaying(true);
     isFinishedRef.current = false;
+    completedRef.current = false;
     if (pollerRef.current) {
       clearInterval(pollerRef.current);
       pollerRef.current = null;
@@ -172,7 +179,7 @@ export default function Checkout() {
 
       // Start background polling every 2.5 seconds to auto-detect payment completion
       pollerRef.current = setInterval(async () => {
-        if (isFinishedRef.current) {
+        if (isFinishedRef.current || completedRef.current) {
           if (pollerRef.current) {
             clearInterval(pollerRef.current);
             pollerRef.current = null;
@@ -181,7 +188,10 @@ export default function Checkout() {
         }
         try {
           const statusRes = await paymentService.getPaymentStatus(order.order_id);
-          if (statusRes && statusRes.status === 'paid' && !isFinishedRef.current) {
+          if (isFinishedRef.current || completedRef.current) {
+            return;
+          }
+          if (statusRes && statusRes.status === 'paid' && !isFinishedRef.current && !completedRef.current) {
             isFinishedRef.current = true;
             if (pollerRef.current) {
               clearInterval(pollerRef.current);
@@ -217,7 +227,7 @@ export default function Checkout() {
         console.log('[Checkout] Modal closed, checking final order status for:', order.order_id);
         try {
           const checkStatus = await paymentService.getPaymentStatus(order.order_id);
-          if (checkStatus && checkStatus.status === 'paid' && !isFinishedRef.current) {
+          if (checkStatus && checkStatus.status === 'paid' && !isFinishedRef.current && !completedRef.current) {
             isFinishedRef.current = true;
             if (pollerRef.current) {
               clearInterval(pollerRef.current);
@@ -231,9 +241,11 @@ export default function Checkout() {
             );
             return;
           }
-        } catch {}
+        } catch {
+          // Ignore polling errors
+        }
 
-        if (!isFinishedRef.current) {
+        if (!isFinishedRef.current && !completedRef.current) {
           if (pollerRef.current) {
             clearInterval(pollerRef.current);
             pollerRef.current = null;
@@ -245,7 +257,7 @@ export default function Checkout() {
 
       // Step 3: Verify payment signature server-side
       const targetOrderId = paymentResult?.razorpay_order_id || order?.order_id;
-      if (paymentResult?.razorpay_payment_id && !isFinishedRef.current) {
+      if (paymentResult?.razorpay_payment_id && !isFinishedRef.current && !completedRef.current) {
         console.log('[Checkout] Razorpay modal succeeded. Verifying payment server-side for order:', targetOrderId);
         const verification = await paymentService.verifyPayment({
           razorpay_order_id: targetOrderId,
@@ -259,7 +271,7 @@ export default function Checkout() {
           enrollment_id: verification?.enrollment_id,
         });
 
-        if (verification && verification.success && !isFinishedRef.current) {
+        if (verification && verification.success && !isFinishedRef.current && !completedRef.current) {
           isFinishedRef.current = true;
           if (pollerRef.current) {
             clearInterval(pollerRef.current);
@@ -271,12 +283,12 @@ export default function Checkout() {
             verification.refresh,
             targetOrderId
           );
-        } else if (!isFinishedRef.current) {
+        } else if (!isFinishedRef.current && !completedRef.current) {
           throw new Error(verification?.error || 'Payment verification failed');
         }
       }
     } catch (err) {
-      if (!isFinishedRef.current) {
+      if (!isFinishedRef.current && !completedRef.current) {
         const errMsg = err?.response?.data?.error || err?.response?.data?.detail || err?.message || 'Payment could not be completed. Please try again.';
         console.error('[Checkout] Checkout/Payment error:', errMsg);
         toast.error(errMsg);
@@ -286,7 +298,7 @@ export default function Checkout() {
         clearInterval(pollerRef.current);
         pollerRef.current = null;
       }
-      if (!isFinishedRef.current) {
+      if (!isFinishedRef.current && !completedRef.current) {
         setPaying(false);
       }
     }

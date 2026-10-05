@@ -109,6 +109,7 @@ export default function CoursePlayer() {
     } else if (allLessons.length > 0) {
       setCurrentLesson(allLessons[0]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [course, lessonId]);
 
   // Fetch signed video URL when lesson changes

@@ -3,7 +3,7 @@
 // =========================================================
 
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useCourseContext } from '../../hooks/useCourses';
 import courseService from '../../services/courseService';
 import { MOCK_COURSES } from '../../utils/mockData';
@@ -13,10 +13,8 @@ import styles from './Courses.module.css';
 export default function Courses() {
   const { isEnrolled } = useCourseContext();
   const [coursesList, setCoursesList] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCat, setSelectedCat] = useState('All');
-  const navigate = useNavigate();
 
   useEffect(() => {
     courseService
@@ -27,8 +25,7 @@ export default function Courses() {
       })
       .catch(() => {
         setCoursesList(MOCK_COURSES);
-      })
-      .finally(() => setLoading(false));
+      });
   }, []);
 
   const categories = ['All', 'Digital Products & AI', 'Online Business', 'Performance Marketing'];

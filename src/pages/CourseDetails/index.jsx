@@ -4,8 +4,6 @@
 
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import toast from 'react-hot-toast';
-import { useAuth } from '../../hooks/useAuth';
 import { useCourseContext } from '../../hooks/useCourses';
 import courseService from '../../services/courseService';
 import Button from '../../components/common/Button';
@@ -16,7 +14,6 @@ import styles from './CourseDetails.module.css';
 
 export default function CourseDetails() {
   const { id } = useParams();
-  const { isAuthenticated } = useAuth();
   const { isEnrolled } = useCourseContext();
   const navigate = useNavigate();
 

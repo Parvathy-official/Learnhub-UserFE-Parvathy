@@ -112,7 +112,7 @@ export default function PaymentSuccess() {
             id="ok-continue-btn"
             className={styles.continueBtn}
           >
-            OK, Proceed
+            OK / Continue
           </Button>
         </div>
       </div>

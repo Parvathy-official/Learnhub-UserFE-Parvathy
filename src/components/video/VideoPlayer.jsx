@@ -14,7 +14,7 @@ function parseVideoSource(url) {
   const cleanUrl = String(url).trim();
 
   // 1. YouTube
-  const ytMatch = cleanUrl.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
+  const ytMatch = cleanUrl.match(/(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/i);
   if (ytMatch && ytMatch[1]) {
     return {
       type: 'youtube',
@@ -23,7 +23,7 @@ function parseVideoSource(url) {
   }
 
   // 2. Vimeo
-  const vimeoMatch = cleanUrl.match(/vimeo\.com\/(?:channels\/(?:\w+\/)?|groups\/([^\/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)/i);
+  const vimeoMatch = cleanUrl.match(/vimeo\.com\/(?:channels\/(?:\w+\/)?|groups\/([^/]*)\/videos\/|album\/(\d+)\/video\/|video\/|)(\d+)/i);
   if (vimeoMatch && vimeoMatch[3]) {
     return {
       type: 'vimeo',
@@ -92,6 +92,46 @@ export default function VideoPlayer({ videoUrl, src, lessonTitle, title, initial
     return () => clearTimeout(controlsTimer.current);
   }, []);
 
+  const handleContextMenu = (e) => e.preventDefault();
+
+  const togglePlay = useCallback(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) { v.play(); setPlaying(true); }
+    else { v.pause(); setPlaying(false); }
+  }, []);
+
+  const skipTime = useCallback((seconds) => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.currentTime = Math.min(Math.max(0, v.currentTime + seconds), v.duration || 0);
+  }, []);
+
+  const changeSpeed = useCallback((speed) => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.playbackRate = speed;
+    setPlaybackSpeed(speed);
+  }, []);
+
+  const toggleMute = useCallback(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = !v.muted;
+    setMuted(v.muted);
+  }, []);
+
+  const toggleFullscreen = useCallback(() => {
+    const container = videoRef.current?.parentElement;
+    if (!document.fullscreenElement) {
+      container?.requestFullscreen();
+      setFullscreen(true);
+    } else {
+      document.exitFullscreen();
+      setFullscreen(false);
+    }
+  }, []);
+
   // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -115,29 +155,7 @@ export default function VideoPlayer({ videoUrl, src, lessonTitle, title, initial
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [playing, muted]);
-
-  const handleContextMenu = (e) => e.preventDefault();
-
-  const togglePlay = () => {
-    const v = videoRef.current;
-    if (!v) return;
-    if (v.paused) { v.play(); setPlaying(true); }
-    else { v.pause(); setPlaying(false); }
-  };
-
-  const skipTime = (seconds) => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.currentTime = Math.min(Math.max(0, v.currentTime + seconds), v.duration || 0);
-  };
-
-  const changeSpeed = (speed) => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.playbackRate = speed;
-    setPlaybackSpeed(speed);
-  };
+  }, [togglePlay, skipTime, toggleFullscreen, toggleMute]);
 
   const handleTimeUpdate = () => {
     const v = videoRef.current;
@@ -180,24 +198,6 @@ export default function VideoPlayer({ videoUrl, src, lessonTitle, title, initial
     setVolume(val);
     if (videoRef.current) videoRef.current.volume = val;
     setMuted(val === 0);
-  };
-
-  const toggleMute = () => {
-    const v = videoRef.current;
-    if (!v) return;
-    v.muted = !v.muted;
-    setMuted(v.muted);
-  };
-
-  const toggleFullscreen = () => {
-    const container = videoRef.current?.parentElement;
-    if (!document.fullscreenElement) {
-      container?.requestFullscreen();
-      setFullscreen(true);
-    } else {
-      document.exitFullscreen();
-      setFullscreen(false);
-    }
   };
 
   const formatTime = (secs) => {
