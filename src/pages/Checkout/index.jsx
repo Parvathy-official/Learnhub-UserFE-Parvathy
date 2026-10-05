@@ -3,7 +3,7 @@
 //  No login required: enter Name & Email to unlock access
 // =========================================================
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { useCourseContext } from '../../hooks/useCourses';
@@ -20,6 +20,9 @@ export default function Checkout() {
   const { currentUser, updateUser, setAuthSession, isAuthenticated } = useAuth();
   const { addEnrollment, addPurchase, fetchEnrollments } = useCourseContext();
   const navigate = useNavigate();
+
+  const pollerRef = useRef(null);
+  const isFinishedRef = useRef(false);
 
   const [course, setCourse] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -48,8 +51,24 @@ export default function Checkout() {
       .finally(() => setLoading(false));
   }, [validId]);
 
+  useEffect(() => {
+    return () => {
+      isFinishedRef.current = true;
+      if (pollerRef.current) {
+        clearInterval(pollerRef.current);
+        pollerRef.current = null;
+      }
+    };
+  }, []);
+
   // Complete purchase, authenticate user, refresh enrollments, and redirect
   const completeSuccessfulCheckout = async (userData, accessToken, refreshToken, orderRef) => {
+    isFinishedRef.current = true;
+    if (pollerRef.current) {
+      clearInterval(pollerRef.current);
+      pollerRef.current = null;
+    }
+
     if (setAuthSession) {
       setAuthSession({
         user: userData,
@@ -96,7 +115,9 @@ export default function Checkout() {
     }
 
     toast.success('Instant Access Granted! Welcome to the Masterclass! 🎉');
-    navigate(`/course/${validId}/learn`);
+    navigate(`/payment-success?courseId=${validId}${orderRef ? `&orderId=${encodeURIComponent(orderRef)}` : ''}`, {
+      state: { courseId: validId, orderId: orderRef },
+    });
   };
 
   const handlePayment = async (e) => {
@@ -114,9 +135,11 @@ export default function Checkout() {
     }
 
     setPaying(true);
-
-    let poller = null;
-    let isFinished = false;
+    isFinishedRef.current = false;
+    if (pollerRef.current) {
+      clearInterval(pollerRef.current);
+      pollerRef.current = null;
+    }
 
     try {
       // Save buyer profile in storage
@@ -148,16 +171,22 @@ export default function Checkout() {
       });
 
       // Start background polling every 2.5 seconds to auto-detect payment completion
-      poller = setInterval(async () => {
-        if (isFinished) {
-          if (poller) clearInterval(poller);
+      pollerRef.current = setInterval(async () => {
+        if (isFinishedRef.current) {
+          if (pollerRef.current) {
+            clearInterval(pollerRef.current);
+            pollerRef.current = null;
+          }
           return;
         }
         try {
           const statusRes = await paymentService.getPaymentStatus(order.order_id);
-          if (statusRes && statusRes.status === 'paid' && !isFinished) {
-            isFinished = true;
-            if (poller) clearInterval(poller);
+          if (statusRes && statusRes.status === 'paid' && !isFinishedRef.current) {
+            isFinishedRef.current = true;
+            if (pollerRef.current) {
+              clearInterval(pollerRef.current);
+              pollerRef.current = null;
+            }
             console.log('[Checkout] Background poller detected payment completed for order:', order.order_id);
             await completeSuccessfulCheckout(
               statusRes.user || buyerData,
@@ -188,9 +217,12 @@ export default function Checkout() {
         console.log('[Checkout] Modal closed, checking final order status for:', order.order_id);
         try {
           const checkStatus = await paymentService.getPaymentStatus(order.order_id);
-          if (checkStatus && checkStatus.status === 'paid' && !isFinished) {
-            isFinished = true;
-            if (poller) clearInterval(poller);
+          if (checkStatus && checkStatus.status === 'paid' && !isFinishedRef.current) {
+            isFinishedRef.current = true;
+            if (pollerRef.current) {
+              clearInterval(pollerRef.current);
+              pollerRef.current = null;
+            }
             await completeSuccessfulCheckout(
               checkStatus.user || buyerData,
               checkStatus.access,
@@ -201,8 +233,11 @@ export default function Checkout() {
           }
         } catch {}
 
-        if (!isFinished) {
-          if (poller) clearInterval(poller);
+        if (!isFinishedRef.current) {
+          if (pollerRef.current) {
+            clearInterval(pollerRef.current);
+            pollerRef.current = null;
+          }
           setPaying(false);
           return;
         }
@@ -210,7 +245,7 @@ export default function Checkout() {
 
       // Step 3: Verify payment signature server-side
       const targetOrderId = paymentResult?.razorpay_order_id || order?.order_id;
-      if (paymentResult?.razorpay_payment_id && !isFinished) {
+      if (paymentResult?.razorpay_payment_id && !isFinishedRef.current) {
         console.log('[Checkout] Razorpay modal succeeded. Verifying payment server-side for order:', targetOrderId);
         const verification = await paymentService.verifyPayment({
           razorpay_order_id: targetOrderId,
@@ -224,28 +259,34 @@ export default function Checkout() {
           enrollment_id: verification?.enrollment_id,
         });
 
-        if (verification && verification.success && !isFinished) {
-          isFinished = true;
-          if (poller) clearInterval(poller);
+        if (verification && verification.success && !isFinishedRef.current) {
+          isFinishedRef.current = true;
+          if (pollerRef.current) {
+            clearInterval(pollerRef.current);
+            pollerRef.current = null;
+          }
           await completeSuccessfulCheckout(
             verification.user || buyerData,
             verification.access,
             verification.refresh,
             targetOrderId
           );
-        } else if (!isFinished) {
+        } else if (!isFinishedRef.current) {
           throw new Error(verification?.error || 'Payment verification failed');
         }
       }
     } catch (err) {
-      if (!isFinished) {
+      if (!isFinishedRef.current) {
         const errMsg = err?.response?.data?.error || err?.response?.data?.detail || err?.message || 'Payment could not be completed. Please try again.';
         console.error('[Checkout] Checkout/Payment error:', errMsg);
         toast.error(errMsg);
       }
     } finally {
-      if (poller) clearInterval(poller);
-      if (!isFinished) {
+      if (pollerRef.current) {
+        clearInterval(pollerRef.current);
+        pollerRef.current = null;
+      }
+      if (!isFinishedRef.current) {
         setPaying(false);
       }
     }

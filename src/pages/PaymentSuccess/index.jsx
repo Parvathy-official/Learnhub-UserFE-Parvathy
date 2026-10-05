@@ -3,60 +3,117 @@
 // =========================================================
 
 import { useEffect, useState } from 'react';
-import { Link, useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate, useLocation } from 'react-router-dom';
 import { useCourseContext } from '../../hooks/useCourses';
+import courseService from '../../services/courseService';
 import Button from '../../components/common/Button';
 import styles from './PaymentSuccess.module.css';
 
 export default function PaymentSuccess() {
   const [searchParams] = useSearchParams();
-  const courseId = searchParams.get('course');
-  const orderId = searchParams.get('orderId');
-  const { courses } = useCourseContext();
+  const location = useLocation();
   const navigate = useNavigate();
+  const { courses, enrollments } = useCourseContext();
 
-  const currentCourse = courses.find((c) => String(c.id) === String(courseId));
+  const queryCourseId = searchParams.get('courseId') || searchParams.get('course');
+  const stateCourseId = location.state?.courseId || location.state?.course_id;
+  const fallbackCourseId = enrollments?.[0]?.course_id ? String(enrollments[0].course_id) : '1';
+
+  const courseId = queryCourseId || stateCourseId || fallbackCourseId;
+  const orderId = searchParams.get('orderId') || searchParams.get('order_id') || location.state?.orderId || location.state?.order_id;
+
+  const [course, setCourse] = useState(() => {
+    return courses?.find((c) => String(c.id) === String(courseId)) || null;
+  });
+
+  useEffect(() => {
+    if (!course && courseId) {
+      courseService
+        .getCourseById(courseId)
+        .then((data) => {
+          if (data) setCourse(data);
+        })
+        .catch(() => {
+          // Keep current fallback
+        });
+    }
+  }, [courseId, course]);
+
+  const handleContinue = () => {
+    const targetId = courseId || '1';
+    navigate(`/course/${targetId}/learn`);
+  };
 
   return (
     <div className={styles.page}>
       <div className={styles.card}>
+        {/* Success Icon */}
         <div className={styles.successIcon} aria-hidden="true">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <polyline points="20 6 9 17 4 12" />
           </svg>
         </div>
+
+        {/* Title */}
         <h1 className={styles.title}>Payment Successful!</h1>
+
+        {/* Primary Confirmation Text */}
         <p className={styles.desc}>
-          Thank you! You now have full lifetime access to {currentCourse ? <strong>{currentCourse.title}</strong> : 'your course'}.
+          Your payment has been completed successfully and your course access is ready.
         </p>
 
-        {orderId && (
-          <div style={{ background: '#080D12', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', padding: '10px 16px', margin: '0 0 24px', display: 'inline-block' }}>
-            <span style={{ fontSize: '0.8125rem', color: 'var(--text-tertiary)' }}>Order Reference: </span>
-            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--primary)', fontFamily: 'monospace' }}>{orderId}</span>
+        {/* Purchased Course Card (if available) */}
+        {course && (
+          <div className={styles.courseBadge}>
+            <span className={styles.courseBadgeLabel}>Enrolled Course</span>
+            <span className={styles.courseBadgeTitle}>{course.title}</span>
           </div>
         )}
 
-        <div className={styles.benefits}>
-          {['Instant access to all lessons', 'Progress tracked automatically', 'Lifetime access & updates', 'Certificate upon completion'].map((b) => (
-            <div key={b} className={styles.benefit}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--success)" strokeWidth="2.5" aria-hidden="true">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-              {b}
-            </div>
-          ))}
+        {/* Email Instruction Callout Box */}
+        <div className={styles.emailNoticeBox}>
+          <div className={styles.emailNoticeHeader}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--primary, #06B6D4)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+            <span className={styles.emailNoticeTitle}>Course Details & Confirmation</span>
+          </div>
+          <p className={styles.emailNoticeText}>
+            Please check your registered email for the course details and confirmation.
+          </p>
+          <div className={styles.spamAlert}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            <span>
+              If you don't see the email in your inbox, please check your <strong>Spam</strong>, <strong>Junk</strong>, or <strong>Promotions</strong> folder as well.
+            </span>
+          </div>
         </div>
 
+        {/* Order Reference if present */}
+        {orderId && (
+          <div className={styles.orderRef}>
+            <span className={styles.orderRefLabel}>Order Reference:</span>
+            <span className={styles.orderRefCode}>{orderId}</span>
+          </div>
+        )}
+
+        {/* Prominent Action Button */}
         <div className={styles.actions}>
-          {courseId && (
-            <Button variant="primary" size="lg" onClick={() => navigate(`/course/${courseId}/learn`)}>
-              Start Learning Now →
-            </Button>
-          )}
-          <Link to="/my-learning">
-            <Button variant="outline" size="lg">Go to My Learning</Button>
-          </Link>
+          <Button
+            variant="primary"
+            size="lg"
+            fullWidth
+            onClick={handleContinue}
+            id="ok-continue-btn"
+            className={styles.continueBtn}
+          >
+            OK, Proceed
+          </Button>
         </div>
       </div>
     </div>

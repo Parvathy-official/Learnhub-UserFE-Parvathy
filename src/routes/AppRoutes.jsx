@@ -44,7 +44,7 @@ export default function AppRoutes() {
       <Route path="/checkout" element={<Checkout />} />
       <Route path="/checkout/:courseId" element={<Checkout />} />
       <Route path="/payment-success" element={<PaymentSuccess />} />
-      <Route path="/payment/success" element={<Navigate to="/payment-success" replace />} />
+      <Route path="/payment/success" element={<PaymentSuccess />} />
       <Route path="/payment/failed" element={<PaymentFailed />} />
 
       {/* ── 404 ── */}
