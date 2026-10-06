@@ -18,7 +18,7 @@ export default function Checkout() {
   const { courseId } = useParams();
   const validId = courseId || '1';
   const { currentUser, updateUser, setAuthSession } = useAuth();
-  const { addEnrollment, addPurchase, fetchEnrollments } = useCourseContext();
+  const { addEnrollment, addPurchase, fetchEnrollments, isEnrolled } = useCourseContext();
   const navigate = useNavigate();
 
   const pollerRef = useRef(null);
@@ -120,6 +120,7 @@ export default function Checkout() {
       }
     }
 
+    console.log('[Payment] navigating to payment-success');
     toast.success('Instant Access Granted! Welcome to the Masterclass! 🎉');
     navigate(`/payment-success?courseId=${validId}${orderRef ? `&orderId=${encodeURIComponent(orderRef)}` : ''}`, {
       state: { courseId: validId, orderId: orderRef },
@@ -177,39 +178,6 @@ export default function Checkout() {
         currency: order.currency,
       });
 
-      // Start background polling every 2.5 seconds to auto-detect payment completion
-      pollerRef.current = setInterval(async () => {
-        if (isFinishedRef.current || completedRef.current) {
-          if (pollerRef.current) {
-            clearInterval(pollerRef.current);
-            pollerRef.current = null;
-          }
-          return;
-        }
-        try {
-          const statusRes = await paymentService.getPaymentStatus(order.order_id);
-          if (isFinishedRef.current || completedRef.current) {
-            return;
-          }
-          if (statusRes && statusRes.status === 'paid' && !isFinishedRef.current && !completedRef.current) {
-            isFinishedRef.current = true;
-            if (pollerRef.current) {
-              clearInterval(pollerRef.current);
-              pollerRef.current = null;
-            }
-            console.log('[Checkout] Background poller detected payment completed for order:', order.order_id);
-            await completeSuccessfulCheckout(
-              statusRes.user || buyerData,
-              statusRes.access,
-              statusRes.refresh,
-              order.order_id
-            );
-          }
-        } catch {
-          // Ignore background polling errors
-        }
-      }, 2500);
-
       // Step 2: Open Razorpay modal
       const paymentResult = await paymentService.openRazorpay({
         key: order?.key,
@@ -222,43 +190,10 @@ export default function Checkout() {
         theme: { color: '#06B6D4' },
       });
 
-      // If user dismissed modal, check if payment succeeded in background
-      if (paymentResult?.dismissed) {
-        console.log('[Checkout] Modal closed, checking final order status for:', order.order_id);
-        try {
-          const checkStatus = await paymentService.getPaymentStatus(order.order_id);
-          if (checkStatus && checkStatus.status === 'paid' && !isFinishedRef.current && !completedRef.current) {
-            isFinishedRef.current = true;
-            if (pollerRef.current) {
-              clearInterval(pollerRef.current);
-              pollerRef.current = null;
-            }
-            await completeSuccessfulCheckout(
-              checkStatus.user || buyerData,
-              checkStatus.access,
-              checkStatus.refresh,
-              order.order_id
-            );
-            return;
-          }
-        } catch {
-          // Ignore polling errors
-        }
-
-        if (!isFinishedRef.current && !completedRef.current) {
-          if (pollerRef.current) {
-            clearInterval(pollerRef.current);
-            pollerRef.current = null;
-          }
-          setPaying(false);
-          return;
-        }
-      }
-
-      // Step 3: Verify payment signature server-side
+      // Priority 1: When paymentResult contains razorpay_payment_id (standard handler response)
       const targetOrderId = paymentResult?.razorpay_order_id || order?.order_id;
       if (paymentResult?.razorpay_payment_id && !isFinishedRef.current && !completedRef.current) {
-        console.log('[Checkout] Razorpay modal succeeded. Verifying payment server-side for order:', targetOrderId);
+        console.log('[Payment] verifying payment');
         const verification = await paymentService.verifyPayment({
           razorpay_order_id: targetOrderId,
           razorpay_payment_id: paymentResult.razorpay_payment_id,
@@ -266,13 +201,8 @@ export default function Checkout() {
           course_id: validId,
         });
 
-        console.log('[Checkout] Server verification response received:', {
-          success: verification?.success,
-          enrollment_id: verification?.enrollment_id,
-        });
-
         if (verification && verification.success && !isFinishedRef.current && !completedRef.current) {
-          isFinishedRef.current = true;
+          console.log('[Payment] verification successful');
           if (pollerRef.current) {
             clearInterval(pollerRef.current);
             pollerRef.current = null;
@@ -283,14 +213,75 @@ export default function Checkout() {
             verification.refresh,
             targetOrderId
           );
+          return;
         } else if (!isFinishedRef.current && !completedRef.current) {
           throw new Error(verification?.error || 'Payment verification failed');
+        }
+      }
+
+      // Priority 2: Fallback if modal was dismissed without direct handler resolution
+      if (paymentResult?.dismissed && !paymentResult?.razorpay_payment_id && !isFinishedRef.current && !completedRef.current) {
+        console.log('[Payment] checking order status');
+        let confirmedPaid = false;
+        let finalStatusRes = null;
+        const MAX_STATUS_RETRIES = 5;
+        const RETRY_INTERVAL_MS = 1500;
+
+        for (let attempt = 1; attempt <= MAX_STATUS_RETRIES; attempt++) {
+          if (isFinishedRef.current || completedRef.current) break;
+          try {
+            if (attempt > 1) {
+              console.log(`[Payment] retrying order status (attempt ${attempt}/${MAX_STATUS_RETRIES})`);
+            }
+            finalStatusRes = await paymentService.getPaymentStatus(order.order_id);
+            if (finalStatusRes && finalStatusRes.status === 'paid') {
+              confirmedPaid = true;
+              break;
+            }
+          } catch (statusErr) {
+            console.warn(`[Payment] Status check error on attempt ${attempt}:`, statusErr?.message);
+          }
+
+          if (attempt < MAX_STATUS_RETRIES && !isFinishedRef.current && !completedRef.current) {
+            await new Promise((resolve) => setTimeout(resolve, RETRY_INTERVAL_MS));
+          }
+        }
+
+        if (confirmedPaid && finalStatusRes && !isFinishedRef.current && !completedRef.current) {
+          console.log('[Payment] verification successful');
+          if (pollerRef.current) {
+            clearInterval(pollerRef.current);
+            pollerRef.current = null;
+          }
+          await completeSuccessfulCheckout(
+            finalStatusRes.user || buyerData,
+            finalStatusRes.access,
+            finalStatusRes.refresh,
+            order.order_id
+          );
+          return;
+        }
+
+        if (!isFinishedRef.current && !completedRef.current) {
+          console.log('[Payment] payment not confirmed');
+          if (pollerRef.current) {
+            clearInterval(pollerRef.current);
+            pollerRef.current = null;
+          }
+          setPaying(false);
+          return;
         }
       }
     } catch (err) {
       if (!isFinishedRef.current && !completedRef.current) {
         const errMsg = err?.response?.data?.error || err?.response?.data?.detail || err?.message || 'Payment could not be completed. Please try again.';
         console.error('[Checkout] Checkout/Payment error:', errMsg);
+        if (errMsg?.toLowerCase().includes('already enrolled')) {
+          toast.success('You already own this course!');
+          if (fetchEnrollments) fetchEnrollments().catch(() => {});
+          navigate(`/payment-success?courseId=${validId}`, { replace: true, state: { courseId: validId } });
+          return;
+        }
         toast.error(errMsg);
       }
     } finally {

@@ -13,7 +13,7 @@ export default function PaymentSuccess() {
   const [searchParams] = useSearchParams();
   const location = useLocation();
   const navigate = useNavigate();
-  const { courses, enrollments } = useCourseContext();
+  const { courses, enrollments, fetchEnrollments } = useCourseContext();
 
   const queryCourseId = searchParams.get('courseId') || searchParams.get('course');
   const stateCourseId = location.state?.courseId || location.state?.course_id;
@@ -25,6 +25,12 @@ export default function PaymentSuccess() {
   const [course, setCourse] = useState(() => {
     return courses?.find((c) => String(c.id) === String(courseId)) || null;
   });
+
+  useEffect(() => {
+    if (fetchEnrollments) {
+      fetchEnrollments().catch(() => {});
+    }
+  }, [fetchEnrollments]);
 
   useEffect(() => {
     if (!course && courseId) {
@@ -112,7 +118,7 @@ export default function PaymentSuccess() {
             id="ok-continue-btn"
             className={styles.continueBtn}
           >
-            OK / Continue
+            OK, Continue
           </Button>
         </div>
       </div>

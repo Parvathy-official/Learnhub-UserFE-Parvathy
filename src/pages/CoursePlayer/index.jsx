@@ -68,10 +68,28 @@ export default function CoursePlayer() {
         }
 
         // Check backend server-side authorization
-        const accessCheck = await courseService.checkCourseAccess(courseId);
+        let hasAccess = false;
+        try {
+          const accessCheck = await courseService.checkCourseAccess(courseId);
+          hasAccess = Boolean(accessCheck?.has_access);
+        } catch {
+          // If network error, rely on client enrollment state
+          hasAccess = enrolled;
+        }
+
         if (!isMounted) return;
 
-        if (!accessCheck?.has_access && !enrolled) {
+        if (!hasAccess && !enrolled) {
+          // Try refreshing enrollments once before denying
+          if (fetchEnrollments) {
+            const fresh = await fetchEnrollments().catch(() => []);
+            const isNowEnrolled = Array.isArray(fresh) && fresh.some((e) => String(e.course_id) === String(courseId) || String(e.course?.id) === String(courseId));
+            if (isNowEnrolled) {
+              setAccessDenied(false);
+              setLoading(false);
+              return;
+            }
+          }
           setAccessDenied(true);
           setLoading(false);
           return;

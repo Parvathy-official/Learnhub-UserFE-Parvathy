@@ -73,33 +73,67 @@ const paymentService = {
     return new Promise((resolve, reject) => {
       if (window.Razorpay && options.key && !options.key.startsWith('rzp_test_mock')) {
         let isResolved = false;
-        console.log('[PaymentService] Launching Razorpay checkout popup for order:', options.order_id);
+        let isDismissed = false;
+        let dismissTimer = null;
+
+        console.log('[Razorpay] Launching checkout popup for order:', options.order_id);
         const rzp = new window.Razorpay({
           ...options,
           handler: (response) => {
+            if (dismissTimer) {
+              clearTimeout(dismissTimer);
+              dismissTimer = null;
+            }
+            if (isResolved) return;
             isResolved = true;
-            console.log('[PaymentService] Razorpay handler triggered successfully with payment ID:', response?.razorpay_payment_id);
-            resolve(response);
+
+            console.log('[Razorpay] handler received');
+            if (isDismissed) {
+              console.log('[Razorpay] success handler arrived after dismiss');
+            }
+            console.log('[Razorpay] payment_id received:', response?.razorpay_payment_id);
+
+            resolve({
+              razorpay_payment_id: response?.razorpay_payment_id,
+              razorpay_order_id: response?.razorpay_order_id || options.order_id,
+              razorpay_signature: response?.razorpay_signature,
+            });
           },
           modal: {
             ondismiss: () => {
-              if (!isResolved) {
-                isResolved = true;
-                console.log('[PaymentService] Razorpay modal dismissed by user for order:', options.order_id);
-                resolve({
-                  dismissed: true,
-                  order_id: options.order_id,
-                });
-              }
+              console.log('[Razorpay] modal dismissed');
+              if (isResolved) return;
+
+              isDismissed = true;
+              console.log('[Razorpay] waiting for success handler');
+
+              // Grace period: wait 2.5s for Razorpay's handler(response) before treating as user cancellation
+              dismissTimer = setTimeout(() => {
+                if (!isResolved) {
+                  isResolved = true;
+                  console.log('[Razorpay] resolving as dismissed');
+                  resolve({
+                    dismissed: true,
+                    order_id: options.order_id,
+                  });
+                }
+              }, 2500);
             },
           },
         });
+
         rzp.on('payment.failed', (response) => {
+          if (dismissTimer) {
+            clearTimeout(dismissTimer);
+            dismissTimer = null;
+          }
+          if (isResolved) return;
           isResolved = true;
           const desc = response?.error?.description || 'Payment was unsuccessful';
           console.warn('[PaymentService] Razorpay payment failed callback:', desc);
           reject(new Error(desc));
         });
+
         rzp.open();
       } else {
         // Fallback for test / dev environment without Razorpay SDK script
