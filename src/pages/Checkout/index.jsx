@@ -200,6 +200,7 @@ export default function Checkout() {
           razorpay_signature: paymentResult.razorpay_signature,
           course_id: validId,
         });
+        console.log('[Payment] verification response:', verification?.success ? 'success: true' : 'success: false');
 
         if (verification && verification.success && !isFinishedRef.current && !completedRef.current) {
           console.log('[Payment] verification successful');
@@ -215,6 +216,7 @@ export default function Checkout() {
           );
           return;
         } else if (!isFinishedRef.current && !completedRef.current) {
+          console.log('[Payment] verification failed');
           throw new Error(verification?.error || 'Payment verification failed');
         }
       }
@@ -248,6 +250,7 @@ export default function Checkout() {
         }
 
         if (confirmedPaid && finalStatusRes && !isFinishedRef.current && !completedRef.current) {
+          console.log('[Payment] payment confirmed');
           console.log('[Payment] verification successful');
           if (pollerRef.current) {
             clearInterval(pollerRef.current);
