@@ -9,6 +9,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { useCourseContext } from '../../hooks/useCourses';
 import { MOCK_COURSES } from '../../utils/mockData';
 import styles from './Home.module.css';
+import HeroVisual from './HeroVisual';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -169,7 +170,7 @@ export default function Home() {
             Create & Sell Your First Digital Product With AI
           </h1>
 
-          {/* Banner Showcase Image */}
+          {/* Banner Showcase Visual */}
           <div
             className={styles.heroBannerWrap}
             onClick={handleInstantAccess}
@@ -180,12 +181,7 @@ export default function Home() {
             }}
             title={userHasAccess ? 'Click to resume masterclass' : 'Click to get instant access'}
           >
-            <img
-              src="/workshop-banner.jpg"
-              alt="Create & Sell Your First Digital Product With AI — 3-Hour Practical Masterclass"
-              className={styles.heroBannerImg}
-              loading="eager"
-            />
+            <HeroVisual />
           </div>
 
           <p className={styles.heroSubtitle}>

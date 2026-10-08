@@ -169,7 +169,7 @@
 }
 .active .statusIcon {
   background: var(--primary);
-  color: #fff;
+  color: #0B0B0B;
 }
 .completed .statusIcon {
   background: var(--success-bg);

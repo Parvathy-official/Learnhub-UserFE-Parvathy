@@ -43,16 +43,16 @@ export default function App() {
                 fontFamily: "'Lato', sans-serif",
                 fontSize: '0.875rem',
                 borderRadius: '10px',
-                background: '#0B1116',
-                color: '#CBD5E1',
+                background: '#171717',
+                color: '#FAFAF9',
                 boxShadow: '0 10px 30px rgba(0, 0, 0, 0.9)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
+                border: '1px solid #2A2A2A',
               },
               success: {
-                iconTheme: { primary: '#10B981', secondary: '#0B1116' },
+                iconTheme: { primary: '#22C55E', secondary: '#171717' },
               },
               error: {
-                iconTheme: { primary: '#EF4444', secondary: '#0B1116' },
+                iconTheme: { primary: '#EF4444', secondary: '#171717' },
               },
             }}
           />

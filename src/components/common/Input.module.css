@@ -24,7 +24,7 @@
   width: 100%;
   height: 44px;
   padding: 0 14px;
-  background: #080D12;
+  background: #171717;
   border: 1.5px solid var(--border);
   border-radius: var(--radius-md);
   font-family: var(--font-sans);
@@ -40,7 +40,7 @@
 
 .input:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px var(--primary-bg), 0 0 15px rgba(6, 182, 212, 0.2);
+  box-shadow: 0 0 0 3px var(--primary-bg), 0 0 15px rgba(245, 158, 11, 0.15);
 }
 
 .input:disabled {

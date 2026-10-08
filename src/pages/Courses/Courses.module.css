@@ -22,8 +22,8 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--primary);
-  background: rgba(6, 182, 212, 0.12);
-  border: 1px solid rgba(6, 182, 212, 0.3);
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.3);
   padding: 5px 14px;
   border-radius: var(--radius-full);
   margin-bottom: var(--space-3);
@@ -32,7 +32,7 @@
 .title {
   font-size: clamp(2rem, 4vw, 2.8rem);
   font-weight: 900;
-  color: #FFFFFF;
+  color: #FAFAF9;
   line-height: 1.2;
   margin-bottom: var(--space-3);
   letter-spacing: -0.02em;
@@ -81,10 +81,10 @@
 .searchInput {
   width: 100%;
   padding: 12px 16px 12px 42px;
-  background: #0B1116;
+  background: #171717;
   border: 1.5px solid var(--border);
   border-radius: var(--radius-lg);
-  color: #FFFFFF;
+  color: #FAFAF9;
   font-size: 0.9375rem;
   transition: all var(--transition-fast);
 }
@@ -92,7 +92,7 @@
 .searchInput:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 15px rgba(6, 182, 212, 0.25);
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
 }
 
 .categories {
@@ -103,7 +103,7 @@
 
 .catBtn {
   padding: 8px 16px;
-  background: #0B1116;
+  background: #171717;
   border: 1px solid var(--border);
   border-radius: var(--radius-full);
   color: var(--text-secondary);
@@ -114,16 +114,16 @@
 }
 
 .catBtn:hover {
-  color: #FFFFFF;
-  border-color: rgba(6, 182, 212, 0.4);
+  color: #FAFAF9;
+  border-color: rgba(245, 158, 11, 0.4);
 }
 
 .catBtnActive {
   background: var(--primary);
-  color: #030708;
+  color: #0B0B0B;
   border-color: var(--primary);
   font-weight: 700;
-  box-shadow: 0 0 16px rgba(6, 182, 212, 0.35);
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.35);
 }
 
 /* Courses Grid */
@@ -134,7 +134,7 @@
 }
 
 .courseCard {
-  background: #0B1116;
+  background: #171717;
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   overflow: hidden;
@@ -145,15 +145,15 @@
 
 .courseCard:hover {
   transform: translateY(-4px);
-  border-color: rgba(6, 182, 212, 0.4);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(6, 182, 212, 0.15);
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(245, 158, 11, 0.15);
 }
 
 .thumbWrap {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  background: #070C10;
+  background: #101010;
   overflow: hidden;
 }
 
@@ -172,9 +172,9 @@
   position: absolute;
   top: 12px;
   left: 12px;
-  background: rgba(3, 7, 8, 0.85);
-  border: 1px solid rgba(6, 182, 212, 0.4);
-  color: #22D3EE;
+  background: rgba(11, 11, 11, 0.85);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #FBBF24;
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.04em;
@@ -203,7 +203,7 @@
 .cardTitle {
   font-size: 1.15rem;
   font-weight: 800;
-  color: #FFFFFF;
+  color: #FAFAF9;
   line-height: 1.35;
   margin-bottom: 8px;
   text-decoration: none;
@@ -247,7 +247,7 @@
 .price {
   font-size: 1.35rem;
   font-weight: 900;
-  color: #FFFFFF;
+  color: #FAFAF9;
 }
 
 .originalPrice {
@@ -263,8 +263,8 @@
 
 .buyBtn {
   padding: 8px 16px;
-  background: linear-gradient(135deg, #06B6D4 0%, #0891B2 100%);
-  color: #030708;
+  background: #F59E0B;
+  color: #0B0B0B;
   font-size: 0.85rem;
   font-weight: 800;
   border-radius: var(--radius-md);
@@ -274,33 +274,33 @@
 }
 
 .buyBtn:hover {
-  filter: brightness(1.1);
-  box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+  background: #D97706;
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
 }
 
 .resumeBtn {
   padding: 8px 16px;
-  background: linear-gradient(135deg, #06B6D4 0%, #0EA5E9 100%);
-  color: #030708;
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  color: #0B0B0B;
   font-size: 0.85rem;
   font-weight: 800;
   border-radius: var(--radius-md);
   text-decoration: none;
   transition: all var(--transition-fast);
   white-space: nowrap;
-  box-shadow: 0 0 15px rgba(6, 182, 212, 0.35);
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.35);
 }
 
 .resumeBtn:hover {
   filter: brightness(1.08);
-  box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
 }
 
 .detailsBtn {
   padding: 8px 12px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border);
-  color: var(--text-secondary);
+  background: #171717;
+  border: 1px solid #2A2A2A;
+  color: #FAFAF9;
   font-size: 0.85rem;
   font-weight: 600;
   border-radius: var(--radius-md);
@@ -309,8 +309,9 @@
 }
 
 .detailsBtn:hover {
-  color: #FFFFFF;
-  border-color: rgba(255, 255, 255, 0.2);
+  background: #202020;
+  color: #FAFAF9;
+  border-color: #2A2A2A;
 }
 
 @media (max-width: 640px) {

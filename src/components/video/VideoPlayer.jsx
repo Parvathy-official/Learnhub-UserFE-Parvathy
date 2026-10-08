@@ -274,7 +274,7 @@ export default function VideoPlayer({ videoUrl, src, lessonTitle, title, initial
       <div className={styles.clickOverlay} onClick={togglePlay}>
         {!playing && (
           <div className={styles.playBtn} aria-label="Play">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="#030708">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#0B0B0B">
               <polygon points="5 3 19 12 5 21 5 3" />
             </svg>
           </div>

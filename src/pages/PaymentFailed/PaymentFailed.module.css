@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   padding: calc(var(--navbar-height, 70px) + 36px) var(--space-4) var(--space-12);
-  background: radial-gradient(ellipse at 50% 30%, #081721 0%, #030708 75%);
+  background: radial-gradient(ellipse at 50% 30%, #171717 0%, #0B0B0B 75%);
   min-height: 100vh;
 }
 
@@ -17,7 +17,7 @@
 .card {
   width: 100%;
   max-width: 480px;
-  background: var(--card-bg);
+  background: #171717;
   border: 1px solid var(--border);
   border-radius: var(--radius-2xl);
   padding: 48px 40px 40px;

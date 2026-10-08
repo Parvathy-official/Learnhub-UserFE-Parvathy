@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   padding: calc(var(--navbar-height, 70px) + 36px) var(--space-4, 16px) var(--space-12, 48px);
-  background: radial-gradient(ellipse at 50% 25%, #081721 0%, #030708 75%);
+  background: radial-gradient(ellipse at 50% 25%, #171717 0%, #0B0B0B 75%);
   min-height: 100vh;
 }
 
@@ -17,12 +17,12 @@
 .card {
   width: 100%;
   max-width: 500px;
-  background: var(--card-bg, #0B1116);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #171717;
+  border: 1px solid var(--border);
   border-radius: var(--radius-2xl, 24px);
   padding: 40px 32px 36px;
   text-align: center;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.95), 0 0 35px rgba(16, 185, 129, 0.12);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.95), 0 0 35px rgba(34, 197, 94, 0.12);
   animation: scaleIn 0.35s ease;
   position: relative;
   overflow: hidden;
@@ -35,7 +35,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #06B6D4, #10B981, #06B6D4);
+  background: linear-gradient(90deg, #F59E0B, #22C55E, #F59E0B);
 }
 
 @keyframes scaleIn {
@@ -59,19 +59,19 @@
 .successIcon {
   width: 72px;
   height: 72px;
-  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto var(--space-4, 16px);
-  box-shadow: 0 0 30px rgba(16, 185, 129, 0.45);
+  box-shadow: 0 0 30px rgba(34, 197, 94, 0.45);
 }
 
 .title {
   font-size: 1.75rem;
   font-weight: 900;
-  color: var(--text-dark, #F0FDFE);
+  color: var(--text-dark, #FAFAF9);
   margin: 0 0 10px;
   letter-spacing: -0.02em;
 }
@@ -84,8 +84,8 @@
 }
 
 .courseBadge {
-  background: rgba(6, 182, 212, 0.08);
-  border: 1px solid rgba(6, 182, 212, 0.2);
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.25);
   border-radius: var(--radius-md, 10px);
   padding: 10px 16px;
   margin-bottom: var(--space-4, 16px);
@@ -99,22 +99,22 @@
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--primary, #06B6D4);
+  color: var(--primary, #F59E0B);
   font-weight: 700;
 }
 
 .courseBadgeTitle {
   font-size: 0.92rem;
   font-weight: 700;
-  color: var(--text-dark, #F0FDFE);
+  color: var(--text-dark, #FAFAF9);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .emailNoticeBox {
-  background: #070D12;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #101010;
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg, 14px);
   padding: 16px 18px;
   margin-bottom: var(--space-5, 20px);
@@ -128,7 +128,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: var(--primary, #06B6D4);
+  color: var(--primary, #F59E0B);
 }
 
 .emailNoticeTitle {
@@ -163,15 +163,15 @@
 }
 
 .spamAlert strong {
-  color: #FDE68A;
+  color: #FAFAF9;
 }
 
 .orderRef {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #04080B;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: #101010;
+  border: 1px solid var(--border);
   border-radius: var(--radius-md, 10px);
   padding: 6px 12px;
   margin-bottom: var(--space-5, 20px);
@@ -179,13 +179,13 @@
 
 .orderRefLabel {
   font-size: 0.78rem;
-  color: var(--text-tertiary, #64748B);
+  color: var(--text-tertiary, #A8A29E);
 }
 
 .orderRefCode {
   font-size: 0.82rem;
   font-weight: 700;
-  color: var(--primary, #06B6D4);
+  color: var(--primary, #F59E0B);
   font-family: monospace;
 }
 
@@ -199,11 +199,11 @@
   font-size: 1rem !important;
   font-weight: 800 !important;
   letter-spacing: 0.02em !important;
-  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.35) !important;
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.35) !important;
   transition: all 0.2s ease !important;
 }
 
 .continueBtn:hover {
-  box-shadow: 0 6px 28px rgba(6, 182, 212, 0.55) !important;
+  box-shadow: 0 6px 28px rgba(245, 158, 11, 0.55) !important;
   transform: translateY(-1px);
 }

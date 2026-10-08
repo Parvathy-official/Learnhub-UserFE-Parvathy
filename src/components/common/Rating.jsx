@@ -25,7 +25,7 @@ export default function Rating({ value = 0, count, size = 'sm', showValue = true
               <defs>
                 <linearGradient id={`partial-${index}`}>
                   <stop offset={`${(value % 1) * 100}%`} stopColor="#F59E0B" />
-                  <stop offset={`${(value % 1) * 100}%`} stopColor="#D1D5DB" />
+                  <stop offset={`${(value % 1) * 100}%`} stopColor="#2A2A2A" />
                 </linearGradient>
               </defs>
             ) : null}
@@ -36,7 +36,7 @@ export default function Rating({ value = 0, count, size = 'sm', showValue = true
                   ? '#F59E0B'
                   : partial
                   ? `url(#partial-${index})`
-                  : '#D1D5DB'
+                  : '#2A2A2A'
               }
             />
           </svg>

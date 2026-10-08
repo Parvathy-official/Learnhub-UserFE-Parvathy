@@ -7,41 +7,45 @@
 
 /* --- CSS Custom Properties --- */
 :root {
-  /* Brand Colors — Cyber Cyan & Vibrant Teal */
-  --primary: #06B6D4;
-  --primary-dark: #0891B2;
-  --primary-light: #22D3EE;
-  --primary-bg: rgba(6, 182, 212, 0.12);
-  --primary-glow: rgba(6, 182, 212, 0.35);
-  --accent-teal: #14B8A6;
-  --accent-sky: #0EA5E9;
+  /* Brand Colors — Dark Charcoal & Amber / Gold */
+  --primary: #F59E0B;
+  --primary-hover: #D97706;
+  --primary-dark: #B45309;
+  --primary-light: #FBBF24;
+  --primary-bg: rgba(245, 158, 11, 0.12);
+  --primary-glow: rgba(245, 158, 11, 0.20);
+  --accent-amber: #F59E0B;
+  --accent-gold: #D97706;
+  --accent-bronze: #B45309;
 
-  /* Backgrounds & Surfaces (OLED True Black to Obsidian) */
-  --bg: #030708;
-  --card-bg: #0B1116;
-  --card-bg-hover: #101820;
-  --surface-1: #070C10;
+  /* Backgrounds & Surfaces */
+  --bg: #0B0B0B;
+  --card-bg: #171717;
+  --card-bg-hover: #202020;
+  --surface-1: #101010;
+  --surface-2: #171717;
   --video-bg: #000000;
 
   /* Text & Typography */
-  --text-dark: #F0FDFE;
-  --text-primary: #CBD5E1;
-  --text-secondary: #94A3B8;
-  --text-tertiary: #64748B;
-  --text-inverse: #030708;
+  --text-dark: #FAFAF9;
+  --text-primary: #FAFAF9;
+  --text-secondary: #A8A29E;
+  --text-tertiary: #A8A29E;
+  --text-muted: #78716C;
+  --text-inverse: #0B0B0B;
 
   /* Status */
-  --success: #10B981;
-  --success-bg: rgba(16, 185, 129, 0.12);
+  --success: #22C55E;
+  --success-bg: rgba(34, 197, 94, 0.12);
   --error: #EF4444;
   --error-bg: rgba(239, 68, 68, 0.12);
   --warning: #F59E0B;
   --warning-bg: rgba(245, 158, 11, 0.12);
 
   /* Borders */
-  --border: rgba(255, 255, 255, 0.08);
-  --border-light: rgba(255, 255, 255, 0.04);
-  --border-focus: #06B6D4;
+  --border: #2A2A2A;
+  --border-light: #2A2A2A;
+  --border-focus: #F59E0B;
 
   /* Deep Contrast Shadows & Glows */
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.7);
@@ -49,7 +53,7 @@
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.85);
   --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.9);
   --shadow-xl: 0 20px 35px rgba(0, 0, 0, 0.95);
-  --shadow-primary: 0 0 20px rgba(6, 182, 212, 0.35);
+  --shadow-primary: 0 0 20px rgba(245, 158, 11, 0.20);
 
   /* Spacing */
   --space-1: 4px;
@@ -172,8 +176,8 @@ img {
 /* --- Scrollbar --- */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: #1E293B; border-radius: var(--radius-full); }
-::-webkit-scrollbar-thumb:hover { background: #334155; }
+::-webkit-scrollbar-thumb { background: #2A2A2A; border-radius: var(--radius-full); }
+::-webkit-scrollbar-thumb:hover { background: #3A3A3A; }
 
 /* --- Utility Classes --- */
 

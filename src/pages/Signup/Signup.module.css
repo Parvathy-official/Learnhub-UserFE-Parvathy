@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   padding: calc(var(--navbar-height, 70px) + 36px) var(--space-4) var(--space-12);
-  background: radial-gradient(ellipse at 50% 30%, #081721 0%, #030708 75%);
+  background: radial-gradient(ellipse at 50% 30%, #171717 0%, #0B0B0B 75%);
   min-height: 100vh;
 }
 
@@ -21,7 +21,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-2xl);
   padding: 40px 40px 36px;
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.95), 0 0 30px rgba(6, 182, 212, 0.1);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.95), 0 0 30px rgba(245, 158, 11, 0.1);
   animation: fadeInUp 0.4s ease;
 }
 @keyframes fadeInUp {
@@ -38,7 +38,7 @@
 .logoIcon {
   width: 36px; height: 36px; background: var(--primary);
   border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 0 15px rgba(6, 182, 212, 0.35);
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.35);
 }
 .logoText { font-size: 1.125rem; font-weight: 900; color: var(--text-dark); letter-spacing: -0.03em; }
 

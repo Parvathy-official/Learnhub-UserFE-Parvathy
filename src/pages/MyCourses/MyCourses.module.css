@@ -16,8 +16,8 @@
   display: inline-flex;
   align-items: center;
   gap: 14px;
-  background: rgba(11, 17, 22, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #171717;
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 12px 18px;
   backdrop-filter: blur(12px);
@@ -30,15 +30,15 @@
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #06B6D4 0%, #0284C7 100%);
+  background: #F59E0B;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #030708;
+  color: #0B0B0B;
   font-weight: 800;
   font-size: 0.95rem;
   overflow: hidden;
-  box-shadow: 0 0 12px rgba(6, 182, 212, 0.3);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.3);
   flex-shrink: 0;
 }
 
@@ -64,16 +64,16 @@
 .userName {
   font-size: 0.95rem;
   font-weight: 700;
-  color: #F8FAFC;
+  color: #FAFAF9;
   margin: 0;
 }
 
 .badgeActive {
   font-size: 0.65rem;
   font-weight: 800;
-  color: #06B6D4;
-  background: rgba(6, 182, 212, 0.12);
-  border: 1px solid rgba(6, 182, 212, 0.35);
+  color: #F59E0B;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.35);
   padding: 2px 8px;
   border-radius: 9999px;
   text-transform: uppercase;
@@ -83,9 +83,9 @@
 .badgeInactive {
   font-size: 0.65rem;
   font-weight: 700;
-  color: #94A3B8;
-  background: rgba(148, 163, 184, 0.1);
-  border: 1px solid rgba(148, 163, 184, 0.25);
+  color: #A8A29E;
+  background: rgba(168, 162, 158, 0.1);
+  border: 1px solid rgba(168, 162, 158, 0.25);
   padding: 2px 8px;
   border-radius: 9999px;
   text-transform: uppercase;
@@ -94,7 +94,7 @@
 
 .userEmail {
   font-size: 0.8125rem;
-  color: #94A3B8;
+  color: #A8A29E;
   margin: 0;
 }
 
@@ -107,13 +107,13 @@
 .title {
   font-size: 1.85rem;
   font-weight: 800;
-  color: #F8FAFC;
+  color: #FAFAF9;
   margin: 0 0 6px;
   letter-spacing: -0.02em;
 }
 
 .sub {
-  color: #94A3B8;
+  color: #A8A29E;
   font-size: 0.95rem;
   margin: 0;
   line-height: 1.5;
@@ -135,8 +135,8 @@
 
 .skeletonCard {
   display: flex;
-  background: var(--card-bg, #0B1116);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #171717;
+  border: 1px solid var(--border);
   border-radius: var(--radius-xl, 16px);
   overflow: hidden;
 }

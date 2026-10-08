@@ -39,28 +39,32 @@
 
 /* --- Variants --- */
 .primary {
-  background: var(--primary);
-  color: #030708;
-  font-weight: 700;
-  box-shadow: var(--shadow-primary);
+  background: linear-gradient(180deg, #F59E0B 0%, #D97706 100%);
+  color: #0B0B0B;
+  font-weight: 750;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
 }
 .primary:hover:not(:disabled) {
-  background: var(--primary-light);
+  background: linear-gradient(180deg, #D97706 0%, #B45309 100%);
+  color: #0B0B0B;
   transform: translateY(-1px);
-  box-shadow: 0 0 22px rgba(6, 182, 212, 0.5);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
 }
 .primary:active:not(:disabled) {
+  background: #B45309;
   transform: translateY(0);
 }
 
 .secondary {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid var(--border);
-  color: var(--text-dark);
+  background: #171717;
+  border: 1px solid #2A2A2A;
+  color: #FAFAF9;
 }
 .secondary:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.14);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: #202020;
+  border-color: #2A2A2A;
+  color: #FAFAF9;
   transform: translateY(-1px);
 }
 
@@ -71,7 +75,7 @@
 }
 .outline:hover:not(:disabled) {
   background: var(--primary-bg);
-  box-shadow: 0 0 16px rgba(6, 182, 212, 0.25);
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.15);
   transform: translateY(-1px);
 }
 

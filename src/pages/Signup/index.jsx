@@ -66,7 +66,7 @@ export default function Signup() {
 
   const strength = passwordStrength();
   const strengthLabels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
-  const strengthColors = ['', '#EF4444', '#F59E0B', '#06B6D4', '#10B981'];
+  const strengthColors = ['', '#EF4444', '#F59E0B', '#F59E0B', '#22C55E'];
 
   return (
     <div className={styles.page}>

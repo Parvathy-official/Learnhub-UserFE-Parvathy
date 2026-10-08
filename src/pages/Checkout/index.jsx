@@ -187,7 +187,7 @@ export default function Checkout() {
         description: course?.title || 'Performance Marketing Masterclass',
         order_id: order?.order_id,
         prefill: { name: buyerData.name, email: buyerData.email, contact: phone },
-        theme: { color: '#06B6D4' },
+        theme: { color: '#F59E0B' },
       });
 
       // Priority 1: When paymentResult contains razorpay_payment_id (standard handler response)

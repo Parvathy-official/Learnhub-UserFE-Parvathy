@@ -132,7 +132,7 @@ export default function CourseDetails() {
               <img src={course.thumbnail} alt={course.title} className={styles.thumb} />
               <div className={styles.thumbOverlay}>
                 <div className={styles.playBtn}>
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="#030708">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="#0B0B0B">
                     <polygon points="5 3 19 12 5 21 5 3" />
                   </svg>
                 </div>

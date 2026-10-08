@@ -90,12 +90,12 @@ export default function Dashboard() {
 
           {/* Quick Resume Hero Card */}
           {enrolledCourses.length > 0 && (
-            <div style={{ background: '#0B1116', border: '1px solid rgba(6,182,212,0.3)', borderRadius: 'var(--radius-xl)', padding: '24px', marginBottom: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px', boxShadow: '0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(6,182,212,0.1)' }}>
+            <div style={{ background: '#171717', border: '1px solid rgba(245,158,11,0.3)', borderRadius: 'var(--radius-xl)', padding: '24px', marginBottom: '24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px', boxShadow: '0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(245,158,11,0.1)' }}>
               <div style={{ display: 'flex', gap: '16px', alignItems: 'center', minWidth: 280 }}>
                 <div style={{ width: 100, height: 65, borderRadius: 'var(--radius-md)', overflow: 'hidden', flexShrink: 0, position: 'relative' }}>
                   <img src={enrolledCourses[0].thumbnail} alt={enrolledCourses[0].title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#06B6D4"><polygon points="5 3 19 12 5 21 5 3" /></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#F59E0B"><polygon points="5 3 19 12 5 21 5 3" /></svg>
                   </div>
                 </div>
                 <div>
@@ -133,7 +133,7 @@ export default function Dashboard() {
         {/* Student Toolkit & Mastermind Section */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '24px', margin: '36px 0' }}>
           {/* Live Q&A & Coaching Card */}
-          <div style={{ background: '#0B1116', border: '1px solid var(--border)', borderRadius: 'var(--radius-xl)', padding: '24px' }}>
+          <div style={{ background: '#171717', border: '1px solid var(--border)', borderRadius: 'var(--radius-xl)', padding: '24px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
               <span style={{ width: 10, height: 10, borderRadius: '50%', background: '#EF4444', display: 'inline-block', boxShadow: '0 0 8px #EF4444' }} />
               <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-dark)', margin: 0 }}>Next Live Office Hours & Account Audit</h3>
@@ -141,7 +141,7 @@ export default function Dashboard() {
             <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.5, margin: '0 0 16px' }}>
               Bring your active Meta & Google ad campaigns for live teardowns and scaling troubleshooting with Devon Vance.
             </p>
-            <div style={{ background: '#080D12', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', padding: '12px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ background: '#101010', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', padding: '12px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-dark)' }}>Thursday @ 8:00 PM EST</div>
                 <div style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>Zoom Live Mastermind (Cohort #14)</div>
@@ -153,20 +153,20 @@ export default function Dashboard() {
           </div>
 
           {/* Student Resource Vault */}
-          <div style={{ background: '#0B1116', border: '1px solid var(--border)', borderRadius: 'var(--radius-xl)', padding: '24px' }}>
+          <div style={{ background: '#171717', border: '1px solid var(--border)', borderRadius: 'var(--radius-xl)', padding: '24px' }}>
             <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-dark)', margin: '0 0 12px' }}>
               📦 Student Resource Vault (Direct Access)
             </h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              <a href="#sop" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 14px', background: '#080D12', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', textDecoration: 'none', color: 'var(--text-primary)', fontSize: '0.8125rem', transition: 'border-color 0.2s' }}>
+              <a href="#sop" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 14px', background: '#101010', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', textDecoration: 'none', color: 'var(--text-primary)', fontSize: '0.8125rem', transition: 'border-color 0.2s' }}>
                 <span>📑 25+ Notion Media Buying SOPs</span>
                 <span style={{ color: 'var(--primary)', fontWeight: 600 }}>Open →</span>
               </a>
-              <a href="#roas" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 14px', background: '#080D12', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', textDecoration: 'none', color: 'var(--text-primary)', fontSize: '0.8125rem', transition: 'border-color 0.2s' }}>
+              <a href="#roas" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 14px', background: '#101010', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', textDecoration: 'none', color: 'var(--text-primary)', fontSize: '0.8125rem', transition: 'border-color 0.2s' }}>
                 <span>📊 ROAS & Break-Even MER Calculator</span>
                 <span style={{ color: 'var(--primary)', fontWeight: 600 }}>Open →</span>
               </a>
-              <a href="#discord" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 14px', background: '#080D12', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', textDecoration: 'none', color: 'var(--text-primary)', fontSize: '0.8125rem', transition: 'border-color 0.2s' }}>
+              <a href="#discord" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 14px', background: '#101010', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', textDecoration: 'none', color: 'var(--text-primary)', fontSize: '0.8125rem', transition: 'border-color 0.2s' }}>
                 <span>💬 Private Student Mastermind Discord</span>
                 <span style={{ color: 'var(--primary)', fontWeight: 600 }}>Join →</span>
               </a>
