@@ -28,7 +28,7 @@ const authService = {
   async login({ email, password }) {
     if (USE_MOCK) {
       await delay(800);
-      if (email === 'demo@learnflow.com' && password === 'demo1234') {
+      if ((email === 'demo@withp.com' || email === 'demo@learnflow.com') && password === 'demo1234') {
         return { user: MOCK_USER, access: 'mock_access_token', refresh: 'mock_refresh_token' };
       }
       // For demo: accept any credentials

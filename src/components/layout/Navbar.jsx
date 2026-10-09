@@ -50,19 +50,13 @@ export default function Navbar() {
     >
       <div className={[styles.inner, 'container'].join(' ')}>
         {/* Logo */}
-        <Link to="/" className={styles.logo} aria-label="Flair Academy home">
-          <div className={styles.logoIcon}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B0B0B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 2L2 7l10 5 10-5-10-5z" />
-              <path d="M2 17l10 5 10-5" />
-              <path d="M2 12l10 5 10-5" />
-            </svg>
-          </div>
+        <Link to="/" className={styles.logo} aria-label="with P home">
+          <img src="/logo.png" alt="with P" className={styles.logoImage} />
           <div className={styles.brandText}>
             <span className={styles.logoText}>
-              Flair <span className={styles.logoAccent}>Academy</span>
+              with <span className={styles.logoAccent}>P</span>
             </span>
-            <span className={styles.logoSubtext}>Performance & AI Masterclass</span>
+            <span className={styles.logoSubtext}>LEARN • BUILD • EARN</span>
           </div>
         </Link>
 

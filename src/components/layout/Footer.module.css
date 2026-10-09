@@ -35,6 +35,26 @@
   text-decoration: none;
 }
 
+.logoImage {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.35);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.logo:hover .logoImage {
+  transform: scale(1.05);
+  box-shadow: 0 0 22px rgba(245, 158, 11, 0.55);
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+}
+
 .logoIcon {
   width: 36px;
   height: 36px;
@@ -51,10 +71,19 @@
   font-weight: 900;
   color: var(--text-dark);
   letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
 .logoAccent {
   color: var(--primary);
+}
+
+.logoSubtext {
+  font-size: 0.68rem;
+  color: var(--text-tertiary);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .tagline {

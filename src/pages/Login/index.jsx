@@ -95,7 +95,7 @@ export default function Login() {
     setLoading(true);
     try {
       await verifyOtp({ email: email.trim().toLowerCase(), otp: cleanOtp });
-      toast.success('Successfully authenticated! Welcome to LearnFlow! 🎉');
+      toast.success('Successfully authenticated! Welcome to with P! 🎉');
       navigate(from, { replace: true });
     } catch (err) {
       const msg = err?.response?.data?.error || err?.message || 'Invalid or expired verification code.';
@@ -140,14 +140,8 @@ export default function Login() {
       <div className={styles.card}>
         {/* Logo */}
         <div className={styles.logo}>
-          <div className={styles.logoIcon}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B0B0B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 2L2 7l10 5 10-5-10-5z" />
-              <path d="M2 17l10 5 10-5" />
-              <path d="M2 12l10 5 10-5" />
-            </svg>
-          </div>
-          <span className={styles.logoText}>Flair Academy</span>
+          <img src="/logo.png" alt="with P" className={styles.logoImg} />
+          <span className={styles.logoText}>with <span style={{ color: 'var(--primary)' }}>P</span></span>
         </div>
 
         <div className={styles.header}>

@@ -42,7 +42,7 @@ export default function Signup() {
     setLoading(true);
     try {
       await signup({ name: form.name.trim(), email: form.email, password: form.password });
-      toast.success('Account created! Welcome to LearnFlow 🎉');
+      toast.success('Account created! Welcome to with P 🎉');
       navigate('/my-learning');
     } catch (err) {
       const msg = err?.response?.data?.email?.[0] || err?.response?.data?.detail || err?.message || 'Signup failed';
@@ -72,14 +72,8 @@ export default function Signup() {
     <div className={styles.page}>
       <div className={styles.card}>
         <div className={styles.logo}>
-          <div className={styles.logoIcon}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <path d="M12 2L2 7l10 5 10-5-10-5z" fill="white" />
-              <path d="M2 17l10 5 10-5" stroke="white" strokeWidth="2" strokeLinecap="round" />
-              <path d="M2 12l10 5 10-5" stroke="white" strokeWidth="2" strokeLinecap="round" />
-            </svg>
-          </div>
-          <span className={styles.logoText}>LearnFlow</span>
+          <img src="/logo.png" alt="with P" className={styles.logoImg} />
+          <span className={styles.logoText}>with <span style={{ color: 'var(--primary)' }}>P</span></span>
         </div>
 
         <div className={styles.header}>

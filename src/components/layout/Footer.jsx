@@ -43,18 +43,15 @@ export default function Footer() {
     <footer className={styles.footer} role="contentinfo">
       <div className={['container', styles.inner].join(' ')}>
         <div className={styles.brand}>
-          <Link to="/" className={styles.logo}>
-            <div className={styles.logoIcon}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B0B0B" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                <path d="M2 17l10 5 10-5" />
-                <path d="M2 12l10 5 10-5" />
-              </svg>
+          <Link to="/" className={styles.logo} aria-label="with P home">
+            <img src="/logo.png" alt="with P" className={styles.logoImage} />
+            <div className={styles.brandText}>
+              <span className={styles.logoText}>with <span className={styles.logoAccent}>P</span></span>
+              <span className={styles.logoSubtext}>LEARN • BUILD • EARN</span>
             </div>
-            <span className={styles.logoText}>Flair <span className={styles.logoAccent}>Academy</span></span>
           </Link>
           <p className={styles.tagline}>
-            A 3-Hour practical session to take you from idea to your first profitable digital product with AI.
+            A practical hands-on academy to take you from idea to your first profitable digital product and scalable income.
           </p>
           <div className={styles.pillList}>
             <span className={styles.badgePill}>Practical</span>
@@ -101,7 +98,7 @@ export default function Footer() {
       <div className={styles.bottom}>
         <div className={['container', styles.bottomInner].join(' ')}>
           <p className={styles.copyright}>
-            © {new Date().getFullYear()} Create & Sell Your First Digital Product With AI. All rights reserved.
+            © {new Date().getFullYear()} with P — Learn • Build • Earn. All rights reserved.
           </p>
           <div className={styles.bottomMeta}>
             <span>🔒 Secure Instant Checkout</span>
