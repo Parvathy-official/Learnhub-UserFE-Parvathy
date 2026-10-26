@@ -64,8 +64,11 @@ export default function CourseDetails() {
   if (error) return <div className={styles.page}><ErrorState description={error} onRetry={() => window.location.reload()} /></div>;
   if (!course) return null;
 
-  const discount = discountPercent(course.price, course.discounted_price);
   const finalPrice = course.discounted_price || course.price;
+  const originalPrice = course.original_price && Number(course.original_price) > Number(finalPrice)
+    ? Number(course.original_price)
+    : (Number(course.price) > Number(finalPrice) ? Number(course.price) : null);
+  const discount = originalPrice ? discountPercent(originalPrice, finalPrice) : 0;
 
   const toggleModule = (i) =>
     setOpenModules((prev) => prev.includes(i) ? prev.filter((x) => x !== i) : [...prev, i]);
@@ -243,8 +246,8 @@ export default function CourseDetails() {
               <div className={styles.priceHeader}>
                 <div className={styles.priceRow}>
                   <span className={styles.currentPrice}>{formatPrice(finalPrice)}</span>
-                  {course.discounted_price && course.discounted_price < course.price && (
-                    <span className={styles.originalPrice}>{formatPrice(course.price)}</span>
+                  {originalPrice && originalPrice > finalPrice && (
+                    <span className={styles.originalPrice}>{formatPrice(originalPrice)}</span>
                   )}
                   {discount > 0 && (
                     <span className={styles.discountBadge}>-{discount}%</span>

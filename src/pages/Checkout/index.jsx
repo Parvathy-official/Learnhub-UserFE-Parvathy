@@ -97,7 +97,7 @@ export default function Checkout() {
       }
     }
 
-    const finalPrice = course?.discounted_price || 499;
+    const finalPrice = course?.discounted_price || course?.price || 499;
 
     // Record purchase in context state
     addPurchase({
@@ -317,10 +317,12 @@ export default function Checkout() {
 
   if (!course) return null;
 
-  const discount = discountPercent(course.price, course.discounted_price || 499);
-  const final = course.discounted_price || 499;
-  const original = course.price || 2499;
-  const savings = original - final;
+  const final = course.discounted_price || course.price || 499;
+  const original = course.original_price && Number(course.original_price) > Number(final)
+    ? Number(course.original_price)
+    : (Number(course.price) > Number(final) ? Number(course.price) : 2499);
+  const discount = discountPercent(original, final);
+  const savings = Math.max(0, original - final);
 
   return (
     <div className={styles.page}>
@@ -368,11 +370,13 @@ export default function Checkout() {
 
           {/* Pricing Breakdown */}
           <div className={styles.priceBreakdown}>
-            <div className={styles.priceRow}>
-              <span>Original Value</span>
-              <span className={styles.strikethrough}>{formatPrice(original)}</span>
-            </div>
-            {discount > 0 && (
+            {original > final && (
+              <div className={styles.priceRow}>
+                <span>Original Value</span>
+                <span className={styles.strikethrough}>{formatPrice(original)}</span>
+              </div>
+            )}
+            {discount > 0 && original > final && (
               <div className={[styles.priceRow, styles.discount].join(' ')}>
                 <span>Special Instant Discount ({discount}% OFF)</span>
                 <span>- {formatPrice(savings)}</span>

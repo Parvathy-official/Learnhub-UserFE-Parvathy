@@ -14,14 +14,17 @@ export default function CourseCard({ course }) {
     thumbnail,
     instructor,
     price,
-    discounted_price,
+    original_price,
     total_lessons,
     duration,
     level,
   } = course;
 
-  const discount = discountPercent(price, discounted_price);
   const finalPrice = discounted_price || price;
+  const originalPrice = original_price && Number(original_price) > Number(finalPrice)
+    ? Number(original_price)
+    : (Number(price) > Number(finalPrice) ? Number(price) : null);
+  const discount = originalPrice ? discountPercent(originalPrice, finalPrice) : 0;
 
   return (
     <Link to={`/courses/${id}`} className={styles.card} aria-label={`View ${title}`}>
@@ -62,8 +65,8 @@ export default function CourseCard({ course }) {
         <div className={styles.footerRow}>
           <div className={styles.prices}>
             <span className={styles.currentPrice}>{formatPrice(finalPrice)}</span>
-            {discounted_price && discounted_price < price && (
-              <span className={styles.originalPrice}>{formatPrice(price)}</span>
+            {originalPrice && originalPrice > finalPrice && (
+              <span className={styles.originalPrice}>{formatPrice(originalPrice)}</span>
             )}
           </div>
           <span className={styles.cta}>View Course →</span>
