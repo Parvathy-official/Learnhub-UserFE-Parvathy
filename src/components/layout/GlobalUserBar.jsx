@@ -36,7 +36,9 @@ export default function GlobalUserBar() {
 
   const isHomePage = location.pathname === '/';
   const isPlayerPage = location.pathname.includes('/learn');
-  const activeEnrollments = (enrollments || []).filter((e) => e.status === 'active' || !e.status);
+  const activeEnrollments = (enrollments || []).filter(
+    (e) => ['active', 'completed'].includes(e.status?.toLowerCase?.() || 'active')
+  );
   const hasActiveEnrollment = activeEnrollments.length > 0;
 
   const primaryEnrollment = activeEnrollments[0];

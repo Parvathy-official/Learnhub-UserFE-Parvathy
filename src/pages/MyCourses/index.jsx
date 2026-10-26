@@ -31,7 +31,11 @@ export default function MyCourses() {
 
   const allCourses = courses.length > 0 ? courses : MOCK_COURSES;
   const enrolledCourses = allCourses.filter((c) =>
-    enrollments.some((e) => String(e.course_id) === String(c.id))
+    enrollments.some(
+      (e) =>
+        (String(e.course_id) === String(c.id) || String(e.course?.id) === String(c.id)) &&
+        ['active', 'completed'].includes(e.status?.toLowerCase?.() || 'active')
+    )
   );
 
   const hasEnrollments = enrolledCourses.length > 0;

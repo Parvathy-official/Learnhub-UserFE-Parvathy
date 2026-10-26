@@ -41,6 +41,13 @@ export default function Checkout() {
   }, [currentUser?.name, currentUser?.email]);
 
   useEffect(() => {
+    if (isEnrolled(validId)) {
+      toast('You already have access to this course!', { icon: '🎓' });
+      navigate(`/course/${validId}/learn`, { replace: true });
+    }
+  }, [isEnrolled, validId, navigate]);
+
+  useEffect(() => {
     courseService
       .getCourseById(validId)
       .then(setCourse)

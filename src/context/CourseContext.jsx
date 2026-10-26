@@ -99,8 +99,9 @@ export function CourseProvider({ children }) {
     (courseId) =>
       enrollments.some(
         (e) =>
-          String(e.course_id) === String(courseId) ||
-          String(e.course?.id) === String(courseId)
+          (String(e.course_id) === String(courseId) ||
+           String(e.course?.id) === String(courseId)) &&
+          ['active', 'completed'].includes(e.status?.toLowerCase?.() || 'active')
       ),
     [enrollments]
   );
